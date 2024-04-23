@@ -1,7 +1,7 @@
 <?php
 require_once 'db_connection.php';
 
-class User extends db_connection
+class user extends db_connection
 {
     public function register($username, $email, $password)
     {
