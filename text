@@ -1,0 +1,16 @@
+Required Features:
+1)User Authentication:
+Users should be able to sign up with a username and password.
+Users should be able to log in and log out.
+
+2)Todo List Functionality:
+Once logged in, users should be able to view their todo list.
+Users should be able to add new tasks to their todo list.
+Users should be able to mark tasks as completed.
+Users should be able to edit the task description.
+Users should be able to delete tasks from the todo list.
+
+3)Security:
+Passwords should be securely hashed before being stored in the database.
+Validation:
+Implement validation for user inputs (e.g., username, password, task descriptions)
