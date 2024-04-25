@@ -1,3 +1,25 @@
+<?php
+$email_exist = '';
+if (isset($_GET['error']) && $_GET['error'] === 'email_exist') {
+    $email_exist = 'Email already exists.';
+} else if (isset($_GET['error']) && $_GET['error'] === 'invalid_email') {
+    $email_exist = 'Invalid email.';
+}
+
+$username_length = '';
+if (isset($_GET['error']) && $_GET['error'] === 'min_length') {
+    $username_length = "Username minimum length must be at least 5 characters.";
+}
+
+$password_p = '';
+if (isset($_GET['error']) && $_GET['error'] === 'password_pattern') {
+    $password_p = "Password need to be least 8 characters must be used letters(uppercase and lowercase), numbers and symbols. ";
+}
+
+?>
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,13 +39,17 @@
 
             <form action="reg/register_logic.php" method="post">
                 <input class="text" type="text"  name="username" placeholder="Username" required="">
-                <input class="text email" type="email"  name="email" placeholder="Email" required="">
-                <?php if (!empty($error)) { ?>
-                    <p style="color: red;"><?php echo $error; ?></p>
+                <?php if (!empty($username_length)) { ?>
+                    <p style="color: red;"><?php echo $username_length; ?></p>
                 <?php } ?>
-                <input class="text" type="password" name="password" placeholder="Password" required="">
-<!--                <input class="text w3lpass" type="password" name="password" placeholder="Confirm Password" required="">-->
-
+                <input class="text email" type="email"  name="email" placeholder="Email" readonly="">
+                <?php if (!empty($email_exist)) { ?>
+                    <p style="color: red;"><?php echo $email_exist; ?></p>
+                <?php } ?>
+                <input class="text" type="password" name="password" placeholder="Password" readonly="">
+                <?php if (!empty($password_p)) { ?>
+                    <p style="color: red;"><?php echo $password_p; ?></p>
+                <?php } ?>
                 <input type="submit" value="REGISTER">
             </form>
 
@@ -47,12 +73,7 @@
         <li></li>
     </ul>
 </div>
-<?php
-$error = '';
-if (isset($_GET['error']) && $_GET['error'] === 'email_exist') {
-    $error = 'Email already exists.';
-}
-?>
+
 <!-- //main -->
 </body>
 </html>
