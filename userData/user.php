@@ -6,8 +6,17 @@ class user extends db_connection
     public function register($username, $email, $password)
     {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$hashed_password')";
+        $sql = "INSERT INTO todo.user (username, email, password) VALUES ('$username', '$email', '$hashed_password')";
         return $this->connection->query($sql);
+    }
+
+    public function emailExists($email)
+    {
+        $email = $this->connection->real_escape_string($email);
+        $sql = "SELECT COUNT(*) as count FROM todo.user WHERE email='$email'";
+        $result = $this->connection->query($sql);
+        $row = $result->fetch_assoc();
+        return $row['count'] > 0;
     }
 
     public function login($email, $password)

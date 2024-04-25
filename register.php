@@ -11,19 +11,23 @@
 <body>
 <div class="main-w3layouts wrapper">
     <h1>Please register</h1>
+
     <div class="main-agileinfo">
         <div class="agileits-top">
 
-            <form action="php/register.php" method="post">
+            <form action="reg/register_logic.php" method="post">
                 <input class="text" type="text"  name="username" placeholder="Username" required="">
                 <input class="text email" type="email"  name="email" placeholder="Email" required="">
+                <?php if (!empty($error)) { ?>
+                    <p style="color: red;"><?php echo $error; ?></p>
+                <?php } ?>
                 <input class="text" type="password" name="password" placeholder="Password" required="">
 <!--                <input class="text w3lpass" type="password" name="password" placeholder="Confirm Password" required="">-->
 
                 <input type="submit" value="REGISTER">
             </form>
 
-            <p>You have an Account? <a href="index.html"> Login Now!</a></p>
+            <p>You have an Account? <a href="index.php"> Login Now!</a></p>
 
         </div>
     </div>
@@ -43,6 +47,12 @@
         <li></li>
     </ul>
 </div>
+<?php
+$error = '';
+if (isset($_GET['error']) && $_GET['error'] === 'email_exist') {
+    $error = 'Email already exists.';
+}
+?>
 <!-- //main -->
 </body>
 </html>
