@@ -1,6 +1,6 @@
 <?php
 
-class db_connection
+class DBConnection
 {
     private string $host = "localhost";
     private string $username = "root";
@@ -9,11 +9,16 @@ class db_connection
 
     protected mysqli $connection;
 
+
     public function __construct()
     {
-        $this->connection = new mysqli($this->host, $this->username, $this->password, $this->database);
+       $this->connection = new mysqli($this->host, $this->username, $this->password, $this->database);
         if ($this->connection->connect_error) {
             die("Connection failed: " . $this->connection->connect_error);
         }
+    }
+
+    public function getConnection() {
+        return $this->connection;
     }
 }

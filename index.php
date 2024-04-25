@@ -1,3 +1,16 @@
+
+<?php
+$wrong_email = '';
+if (isset($_GET['error']) && $_GET['error'] === 'invalid_email') {
+    $wrong_email = 'Invalid email.';
+}
+
+$filed_login = '';
+    if (isset($_GET['error']) && $_GET['error'] === 'wrong_login') {
+        $filed_login = 'Wrong email or password';
+    }
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,10 +35,16 @@
 
             <form action="reg/login.php" method="post">
                 <input class="text email" type="email" name="email" placeholder="Email" required="">
+                <?php if (!empty($wrong_email)) { ?>
+                    <p style="color: red;"><?php echo $wrong_email; ?></p>
+                <?php } ?>
                 <input class="text" type="password" name="password" placeholder="Password" required="">
                 <input type="submit" value="LOGIN">
             </form>
-
+            <?php if (!empty($filed_login)) { ?>
+                <p style="color: red;"><?php echo $filed_login; ?></p>
+                <br>
+            <?php } ?>
             <p>Don't have an Account? <a href="register.php"> Register Now!</a></p>
 
         </div>

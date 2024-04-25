@@ -1,5 +1,5 @@
 <?php
-require_once '../userData/user.php';
+require_once '../userData/User.php';
 
 if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
     $username = $_POST ['username'];
@@ -26,9 +26,11 @@ if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
         header("Location: ../register.php?error=password_pattern");
         exit;
     }
-
+    session_start();
     $registered = $user->register($username, $email, $password);
     if ($registered) {
+        $_SESSION['username'] = $username;
+        $_SESSION['email'] = $email;
         header("Location: ../singlePage.php");
         exit;
     } else {
