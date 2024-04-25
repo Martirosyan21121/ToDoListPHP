@@ -6,11 +6,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'];
 
     $user = new User();
-
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        header("Location: ../index.php?error=invalid_email");
-        exit;
-    }
+//
+//    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+//        header("Location: ../index.php?error=invalid_email");
+//        exit;
+//    }
     $login = $user->login($email, $password);
 
     if ($login) {
