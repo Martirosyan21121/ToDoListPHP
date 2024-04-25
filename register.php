@@ -19,7 +19,6 @@ if (isset($_GET['error']) && $_GET['error'] === 'password_pattern') {
 ?>
 
 
-
 <!DOCTYPE html>
 <html>
 <head>

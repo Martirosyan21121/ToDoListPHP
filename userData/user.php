@@ -24,12 +24,28 @@ class user extends db_connection
         $sql = "SELECT * FROM todo.user WHERE email='$email'";
         $result = $this->connection->query($sql);
 
-        if ($result->num_rows == 1) {
-            $user = $result->fetch_assoc();
-            if (password_verify($password, $user['password'])) {
-                return $user;
-            }
+        $user = $result->fetch_assoc();
+        if (password_verify($password, $user['password'])) {
+            return $user;
         }
         return false;
+    }
+
+    public function getUserByEmail($email)
+    {
+        $email = $this->connection->real_escape_string($email);
+        $sql = "SELECT * FROM todo.user WHERE email='$email'";
+        $result = $this->connection->query($sql);
+
+        if (!$result) {
+            echo "Query error: " . $this->connection->error;
+            return null;
+        }
+
+        if ($result->num_rows == 1) {
+            return $result->fetch_assoc();
+        } else {
+            return null;
+        }
     }
 }
