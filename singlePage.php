@@ -19,7 +19,7 @@
 <body>
 <div class="main-w3layouts wrapper">
     <h1>Single Page</h1>
-        <form action="logout.php" method="post" style="margin-left: 50px">
+        <form action="/todo/logout.php" method="post" style="margin-left: 50px">
             <button type="submit" class="add-task-button">
                Logout
             </button>
