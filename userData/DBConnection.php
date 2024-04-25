@@ -17,8 +17,4 @@ class DBConnection
             die("Connection failed: " . $this->connection->connect_error);
         }
     }
-
-    public function getConnection() {
-        return $this->connection;
-    }
 }
