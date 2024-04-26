@@ -49,10 +49,8 @@
     <div class="container">
         <form action="todo/userPage.php" method="post">
             <button type="submit" class="add-task-button">
-                <?php
-                $msg = 50
-                ?>
-                <input type="hidden" name="userId" value="<?php echo $_SESSION['userId'] = $msg; ?>">
+
+                <input type="hidden" name="userId" value="<?php echo $_SESSION['userId'] = $_SESSION['userData']['id']; ?>">
                 Add task
             </button>
         </form>
