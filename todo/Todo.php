@@ -22,4 +22,9 @@ class Todo extends DBConnection
             return array();
         }
     }
+    public function deleteById($todoId)
+    {
+        $sql = "DELETE FROM todo.todo_list WHERE id = '$todoId'";
+        return $this->connection->query($sql);
+    }
 }
