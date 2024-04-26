@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,8 +17,17 @@
     <div class="main-agileinfo">
         <div class="agileits-top">
 
-            <form action="reg/register_logic.php" method="post">
+            <form action="todo/add_task.php" method="post">
                 <input class="text" type="text"  name="text" placeholder="Text" required="">
+                <?php
+                session_start();
+                if(isset($_SESSION['id'])) {
+                    $id = $_SESSION['id'];
+                ?>
+                <input class="text" type="hidden" name="id" value="<?php echo $id ?>">
+                <?php
+                }
+                ?>
                 <input type="submit" value="ADD TASK">
             </form>
 

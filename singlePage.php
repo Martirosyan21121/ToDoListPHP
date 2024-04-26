@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,32 +17,42 @@
 <body>
 <div class="main-w3layouts wrapper">
     <h1>Single Page</h1>
-        <form action="/todo/logout.php" method="post" style="margin-left: 50px">
-            <button type="submit" class="add-task-button">
-               Logout
-            </button>
-        </form>
+
+    <a class="add-task-button" href="todo/logout.php" style="margin-left: 50px">
+        Logout
+    </a>
+
+    <?php
+    session_start();
+    if (isset($_SESSION['username']) && isset($_SESSION['email'])) {
+        $username = $_SESSION['username'];
+        $email = $_SESSION['email'];
+        echo "<h3 style='margin-left: 70%'> Username:____$username</h3>";
+        echo "<h3 style='margin-left: 70%'> Email:____$email</h3>";
+    } else if (isset($_SESSION['userData'])) {
+        $username = $_SESSION['userData']['username'];
+        $email = $_SESSION['userData']['email'];
+        echo "<h3 style='margin-left: 70%'> Username:____$username</h3>";
+        echo "<h3 style='margin-left: 70%'> Email:____ $email</h3>";
+    } else {
+        echo "<p>No username or email found.</p>";
+    }
+    ?>
 
     <div class="main-agileinfo">
         <div class="agileits-top">
-            <?php
-            session_start();
-            if (isset($_SESSION['username']) && isset($_SESSION['email'])) {
-                $username = $_SESSION['username'];
-                $email = $_SESSION['email'];
-                echo "<h3> Username`____$username</h3>";
-                echo "<h3> Email`____ $email</h3>";
-            } else {
-                echo "<p>No username or email found.</p>";
-            }
-            ?>
 
         </div>
-
     </div>
+    <br>
+
     <div class="container">
-        <form action="addTask.php" method="post">
+        <form action="todo/userPage.php" method="post">
             <button type="submit" class="add-task-button">
+                <?php
+                $msg = 50
+                ?>
+                <input type="hidden" name="userId" value="<?php echo $_SESSION['userId'] = $msg; ?>">
                 Add task
             </button>
         </form>

@@ -1,4 +1,3 @@
-
 <?php
 $wrong_email = '';
 if (isset($_GET['error']) && $_GET['error'] === 'invalid_email') {
@@ -12,7 +11,7 @@ $filed_login = '';
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="">
 <head>
     <title>Login page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -66,6 +65,5 @@ $filed_login = '';
         <li></li>
     </ul>
 </div>
-
 </body>
 </html>

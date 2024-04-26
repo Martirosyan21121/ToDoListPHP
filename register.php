@@ -32,7 +32,6 @@ if (isset($_GET['error']) && $_GET['error'] === 'password_pattern') {
 <body>
 <div class="main-w3layouts wrapper">
     <h1>Please register</h1>
-
     <div class="main-agileinfo">
         <div class="agileits-top">
 
