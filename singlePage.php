@@ -43,9 +43,20 @@
         if (!empty($_SESSION['allData'])) {
             foreach ($_SESSION['allData'] as $row) {
                 $text = $row['text'];
+                $itemId = $row['id'];
                 echo "<div class='cart-item'>";
                 echo "<div class='item-title'>$text</div>";
-                echo "<div class='item-description'></div>";
+                echo "<div class='item-description'>";
+                echo '<br>';
+
+                echo "<form action='todo/add_task.php' method='post'>";
+                echo "<input type='hidden' name='itemId' value='$itemId'>";
+                echo "<button type='submit' name='delete' style='margin: 10px'>Delete</button>";
+                echo "<button type='submit' name='update' style='margin: 10px'>Update</button>";
+                echo "<input type='checkbox' name='done' value='$itemId' style='margin: 10px'>";
+                echo "</form>";
+
+                echo "</div>";
                 echo "</div>";
             }
         } else {
@@ -53,6 +64,7 @@
         }
         ?>
     </div>
+
 
     <br>
     <div class="container">
