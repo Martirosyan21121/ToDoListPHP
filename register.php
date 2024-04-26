@@ -1,4 +1,10 @@
 <?php
+
+session_start();
+
+session_unset();
+
+session_destroy();
 $email_exist = '';
 if (isset($_GET['error']) && $_GET['error'] === 'email_exist') {
     $email_exist = 'Email already exists.';

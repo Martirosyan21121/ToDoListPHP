@@ -32,8 +32,10 @@
     } else if (isset($_SESSION['userData'])) {
         $username = $_SESSION['userData']['username'];
         $email = $_SESSION['userData']['email'];
+        $id = $_SESSION['userData']['id'];
         echo "<h3 style='margin-left: 70%'> Username:____$username</h3>";
         echo "<h3 style='margin-left: 70%'> Email:____ $email</h3>";
+        echo "<h3 style='margin-left: 70%'> Email:____ $id</h3>";
     } else {
         echo "<p>No username or email found.</p>";
     }
@@ -41,16 +43,29 @@
 
     <div class="main-agileinfo">
         <div class="agileits-top">
-
+            <?php
+            if (!empty($_SESSION['allData'])) {
+                foreach ($_SESSION['allData'] as $row) {
+                    $text = $row['text'];
+                    echo "<h3> $text</h3>";
+                }
+            } else {
+                echo "<p>You don't have any data !!!</p>";
+            }
+            ?>
         </div>
     </div>
     <br>
 
     <div class="container">
         <form action="todo/userPage.php" method="post">
+            <input type="hidden" name="userId"
+                   value="<?php
+                       $id = $_SESSION['userData']['id'];
+                       echo $id;
+                   ?>">
             <button type="submit" class="add-task-button">
 
-                <input type="hidden" name="userId" value="<?php echo $_SESSION['userId'] = $_SESSION['userData']['id']; ?>">
                 Add task
             </button>
         </form>

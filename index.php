@@ -1,4 +1,10 @@
 <?php
+session_start();
+
+session_unset();
+
+session_destroy();
+
 $wrong_email = '';
 if (isset($_GET['error']) && $_GET['error'] === 'invalid_email') {
     $wrong_email = 'Invalid email.';
