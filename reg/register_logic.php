@@ -33,6 +33,10 @@ if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
     if ($registered) {
         $_SESSION['username'] = $username;
         $_SESSION['email'] = $email;
+
+        $userData = $user->getUserDataByEmail($email);
+        $_SESSION['userData'] = $userData;
+
         header("Location: ../singlePage.php");
         exit;
     } else {
