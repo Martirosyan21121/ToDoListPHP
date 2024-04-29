@@ -70,6 +70,5 @@
     </ul>
 </div>
 
-<!-- //main -->
 </body>
 </html>

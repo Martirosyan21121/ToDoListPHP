@@ -25,15 +25,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     }
 
-//    if (isset($_POST['done'])) {
-//        $completedId = $_POST['done'];
-//
-//        $updateResult = $todo->markCompletedById($completedId);
-//
-//        if (!$updateResult) {
-//            handleError('update_failed');
-//        }
-//    }
+    if (isset($_POST['checkbox'])) {
+        $checkboxValues = $_POST['checkbox'];
+        foreach ($checkboxValues as $itemId) {
+            $todo->markCompletedById($itemId);
+        }
+    }
 
     $text = $_POST['text'];
     $userId = $_POST['id'];

@@ -53,7 +53,7 @@
                 echo "<input type='hidden' name='itemId' value='$itemId'>";
                 echo "<button type='submit' name='delete' style='margin: 10px'>Delete</button>";
                 echo "<button type='submit' name='update' style='margin: 10px'>Update</button>";
-                echo "<input type='checkbox' name='done' value='$itemId' style='margin: 10px'>";
+                echo "<input type='checkbox' name='checkbox[]' value='$itemId' style='margin: 10px'>";
                 echo "</form>";
 
                 echo "</div>";

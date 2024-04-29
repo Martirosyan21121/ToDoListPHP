@@ -8,11 +8,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user = new User();
 
     $todo = new Todo();
-//
-//    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-//        header("Location: ../index.php?error=invalid_email");
-//        exit;
-//    }
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        header("Location: ../index.php?error=invalid_email");
+        exit;
+    }
     session_start ();
     $login = $user->login($email, $password);
     if ($login) {
