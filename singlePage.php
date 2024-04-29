@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="">
 <head>
     <title>Single page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -54,7 +54,7 @@
                 echo "<input type='hidden' name='itemId' value='$itemId'>";
                 echo "<button type='submit' name='delete' style='margin: 10px'>Delete</button>";
                 echo "<button type='submit' name='update' style='margin: 10px'>Update</button>";
-                echo "<input type='checkbox' name='done' value='$itemId' style='margin: 10px'  $isChecked/>";
+                echo "<input type='checkbox' name='done[]' value='$itemId' style='margin: 10px'  $isChecked/>";
                 echo "</form>";
 
                 echo "</div>";
