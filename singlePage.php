@@ -44,6 +44,7 @@
             foreach ($_SESSION['allData'] as $row) {
                 $text = $row['text'];
                 $itemId = $row['id'];
+                $isChecked = $row['task_done'] == 1 ? 'checked' : '';
                 echo "<div class='cart-item'>";
                 echo "<div class='item-title'>$text</div>";
                 echo "<div class='item-description'>";
@@ -53,7 +54,7 @@
                 echo "<input type='hidden' name='itemId' value='$itemId'>";
                 echo "<button type='submit' name='delete' style='margin: 10px'>Delete</button>";
                 echo "<button type='submit' name='update' style='margin: 10px'>Update</button>";
-                echo "<input type='checkbox' name='checkbox[]' value='$itemId' style='margin: 10px'>";
+                echo "<input type='checkbox' name='done' value='$itemId' style='margin: 10px'  $isChecked/>";
                 echo "</form>";
 
                 echo "</div>";

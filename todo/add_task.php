@@ -22,15 +22,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $updateId = $_POST['itemId'];
         $task = $todo->findTaskById($updateId);
         updateTask($task);
-
     }
 
-    if (isset($_POST['checkbox'])) {
-        $checkboxValues = $_POST['checkbox'];
-        foreach ($checkboxValues as $itemId) {
-            $todo->markCompletedById($itemId);
-        }
+    if (isset($_POST['done'])) {
+        $checkedItems = $_POST['done'];
+             $result = $todo->markCompletedById($checkedItems);
+             if (!$result) {
+                 handleError('mark_failed');
+             } else{
+                 reloadTodoList();
+             }
     }
+
 
     $text = $_POST['text'];
     $userId = $_POST['id'];
