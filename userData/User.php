@@ -5,8 +5,8 @@ class User extends DBConnection
 {
     public function register($username, $email, $password)
     {
-//        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO todo.user (username, email, password) VALUES ('$username', '$email', '$password')";
+        $hashed_password = md5($password);
+        $sql = "INSERT INTO todo.user (username, email, password) VALUES ('$username', '$email', '$hashed_password')";
         return $this->connection->query($sql);
     }
 
@@ -20,8 +20,9 @@ class User extends DBConnection
 
     public function login($email, $password)
     {
+        $hashed_password = md5($password);
         $stmt = $this->connection->prepare("SELECT * FROM todo.user WHERE email = ? AND password = ?");
-        $stmt->bind_param("ss", $email, $password);
+        $stmt->bind_param("ss", $email, $hashed_password);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -31,6 +32,7 @@ class User extends DBConnection
 
         return false;
     }
+
 
     public function getUserDataByEmail($email) {
         $stmt = $this->connection->prepare("SELECT * FROM todo.user WHERE email = ?");

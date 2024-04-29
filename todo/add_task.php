@@ -1,23 +1,72 @@
 <?php
 require_once '../todo/Todo.php';
+
+session_start();
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $text = $_POST['text'];
-    $user_id = $_POST['id'];
-    $delete = $_POST['delete'];
-    $update = $_POST['update'];
     $todo = new Todo();
 
-    session_start ();
-    $save = $todo->save($text, $user_id);
+    if (isset($_POST['delete'])) {
 
-    if ($save) {
-        $show = $todo->getAllByUserId($user_id);
-        $_SESSION['allData'] = $show;
+        $deleteId = $_POST['itemId'];
+        $deleteResult = $todo->deleteById($deleteId);
 
-        header('Location: ../singlePage.php');
-    } else {
-        header('Location: ../addTask.php');
+        if ($deleteResult) {
+            reloadTodoList();
+        } else {
+            handleError('delete_failed');
+        }
     }
 
+    if (isset($_POST['update'])) {
+        $updateId = $_POST['itemId'];
+        $task = $todo->findTaskById($updateId);
+        updateTask($task);
 
+    }
+
+//    if (isset($_POST['done'])) {
+//        $completedId = $_POST['done'];
+//
+//        $updateResult = $todo->markCompletedById($completedId);
+//
+//        if (!$updateResult) {
+//            handleError('update_failed');
+//        }
+//    }
+
+    $text = $_POST['text'];
+    $userId = $_POST['id'];
+    $saveResult = $todo->save($text, $userId);
+
+    if ($saveResult) {
+        reloadTodoList();
+    } else {
+        handleError('save_failed');
+    }
 }
+
+function reloadTodoList()
+{
+    $todo = new Todo();
+    $userId = $_SESSION['userData']['id'];
+    $show = $todo->getAllByUserId($userId);
+    $_SESSION['allData'] = $show;
+    header('Location: ../singlePage.php');
+    exit();
+}
+
+function updateTask($task)
+{
+    $_SESSION['task'] = $task;
+    header('Location: ../update_task.php');
+    exit();
+}
+
+function handleError($errorType)
+{
+    header("Location: ../addTask.php?error=$errorType");
+    exit();
+}
+
+

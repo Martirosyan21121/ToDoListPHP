@@ -16,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     session_start ();
     $login = $user->login($email, $password);
     if ($login) {
+
         $userData = $user->getUserDataByEmail($email);
         $userId = $userData['id'];
         $show = $todo->getAllByUserId($userId);
