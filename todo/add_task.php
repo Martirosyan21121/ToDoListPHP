@@ -26,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (isset($_POST['done'])) {
         $checkedItems = $_POST['done'];
-        print_r($checkedItems);
         $checked = $todo->markCompletedById($checkedItems);
         if (!$checked) {
             handleError('mark_failed');

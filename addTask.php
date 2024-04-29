@@ -1,7 +1,5 @@
-
-
 <!DOCTYPE html>
-<html>
+<html lang="">
 <head>
     <title>Update page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
