@@ -788,14 +788,14 @@ input.checkbox:checked:after {
 }
 
 .delete-task-button:hover {
-    background-color: rgb(175, 57, 57);
+    background-color: rgb(255, 89, 89);
 }
 
 
 
 .cart {
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 10px;
     width: 500px;
     margin: 0 auto;
@@ -806,7 +806,7 @@ input.checkbox:checked:after {
     padding: 5px;
     background-color: #f9f9f9;
     border: 1px solid #ddd;
-    border-radius: 3px;
+    border-radius: 10px;
     overflow: hidden; /* Hide any content that overflows the container */
 }
 .item-title {
