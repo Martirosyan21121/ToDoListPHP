@@ -50,16 +50,16 @@
                 echo "<div class='item-title'>$text</div>";
                 echo "<div class='item-description'>";
                 echo '<br>';
-
+                echo "<div class='checkbox-wrapper-13'>";
                 echo "<form action='todo/add_task.php' method='post'>";
                 echo "<input type='hidden' name='itemId' value='$itemId'>";
                 echo "<button type='submit' name='delete' style='margin: 10px' class='delete-task-button'>Delete</button>";
-                echo "<button type='submit' name='update' style='margin-left: 90px' class='add-task-button'>Update</button>";
-                echo "<div class='checkbox-wrapper-13'>";
-                echo "<input type='checkbox' name='done' value='$itemId' style='margin-left: 400px; margin-top: -40px'  $isChecked/>";
-                echo "</div>";
-                echo "</form>";
+                echo "<button type='submit' name='update' style='margin-left: 90px; margin-top: 40px' class='add-task-button'>Update</button>";
 
+                echo "<input type='checkbox' name='done' value='$itemId' style='margin-left: 400px; margin-top: -40px'  $isChecked/>";
+
+                echo "</form>";
+                echo "</div>";
                 echo "</div>";
                 echo "</div>";
             }
