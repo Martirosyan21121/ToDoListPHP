@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="">
 <head>
@@ -5,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
     <script type="application/x-javascript"> addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
         }, false);
@@ -51,12 +54,11 @@
                 echo "<div class='item-description'>";
                 echo '<br>';
                 echo "<div class='checkbox-wrapper-13'>";
-                echo "<form action='../todo/add_task.php' method='post' id='checkboxForm$itemId'>";
+                echo "<form action='../todo/add_task.php' method='post'>";
                 echo "<input type='hidden' name='itemId' value='$itemId'>";
                 echo "<button type='submit' name='delete' style='margin: 10px' class='delete-task-button'>Delete</button>";
                 echo "<button type='submit' name='update' style='margin-left: 90px; margin-top: 40px' class='add-task-button'>Update</button>";
-                echo "<input type='checkbox' name='done[]' value='$itemId' style='margin-left: 400px; margin-top: -40px' $isChecked />";
-
+                echo "<input type='checkbox' class='checkbox-group' name='done[]' value='$itemId' style='margin-left: 400px; margin-top: -40px' $isChecked/>";
                 echo "</form>";
                 echo "</div>";
                 echo "</div>";
@@ -66,7 +68,6 @@
             echo "<p>You don't have any data !!!</p>";
         }
         ?>
-
     </div>
 
     <br>
@@ -75,14 +76,12 @@
             <input type="hidden" name="userId"
                    value="<?php
                    $id = $_SESSION['database']['id'];
-                   echo $id;
                    ?>">
             <button type="submit" class="add-task-button">
                 Add task
             </button>
         </form>
     </div>
-
 
     <div class="colorlibcopy-agile">
         <p>© 2024 project ToDo list using PHP</p>
@@ -100,16 +99,48 @@
         <li></li>
     </ul>
 </div>
-
 <script>
-    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-            const form = this.closest('form');
-            const storedValue = form.querySelector('input[name="done[]"]').value;
-            form.querySelector('input[name="done[]"]').value = storedValue;
-            form.submit();
+    $(document).ready(function(){
+        $('.checkbox-group').click(function(){
+            var formData = $(this).serialize();
+            $.ajax({
+                type: 'POST',
+                url: '../todo/add_task.php',
+                data: formData,
+                success: function(response){
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+
         });
+
+        $('.checkbox-group').click(function(){
+            $(this).prop('checked', !$(this).prop('checked'));
+
+            var formData = $(this).serialize();
+            $.ajax({
+                type: 'POST',
+                url: '../todo/add_task.php',
+                data: formData,
+                success: function(response){
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+
     });
+
+
 </script>
+
+
 </body>
 </html>
+
+<!--../todo/add_task.php-->

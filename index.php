@@ -11,11 +11,10 @@ if (isset($_GET['error']) && $_GET['error'] === 'invalid_email') {
 }
 
 $filed_login = '';
-    if (isset($_GET['error']) && $_GET['error'] === 'wrong_login') {
-        $filed_login = 'Wrong email or password';
-    }
+if (isset($_GET['error']) && $_GET['error'] === 'wrong_login') {
+    $filed_login = 'Wrong email or password';
+}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="">
