@@ -1,5 +1,7 @@
 
-<!DOCTYPE html>
+    <?php
+    session_start();?>
+    <!DOCTYPE html>
 <html lang="">
 <head>
     <title>Single page</title>
@@ -26,7 +28,6 @@
     </a>
 
     <?php
-    session_start();
     if (isset($_SESSION['username']) && isset($_SESSION['email'])) {
         $username = $_SESSION['username'];
         $email = $_SESSION['email'];
@@ -74,10 +75,7 @@
     <div class="container">
         <form action="../todo/userPage.php" method="post">
             <input type="hidden" name="userId"
-                   value="<?php
-                   $id = $_SESSION['database']['id'];
-                   echo $id;
-                   ?>">
+                   value="<?= $_SESSION['database']['id']?>">
             <button type="submit" class="add-task-button">
                 Add task
             </button>

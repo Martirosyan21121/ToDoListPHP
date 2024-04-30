@@ -28,7 +28,6 @@
                 ?>
                 <input type="submit" value="ADD TASK">
             </form>
-
         </div>
     </div>
 
