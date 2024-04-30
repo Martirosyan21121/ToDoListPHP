@@ -12,13 +12,13 @@
         function hideURLbar() {
             window.scrollTo(0, 1);
         } </script>
-    <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="../css/style.css" rel="stylesheet" type="text/css" media="all"/>
     <link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
 </head>
 <body>
 <div class="main-w3layouts wrapper">
     <h1>Single Page</h1>
-    <a class="add-task-button" href="todo/logout.php" style="margin-left: 50px">
+    <a class="add-task-button" href="../loginData/logout.php" style="margin-left: 50px">
         Logout
     </a>
 
@@ -29,9 +29,9 @@
         $email = $_SESSION['email'];
         echo "<h3 style='margin-left: 70%'> Username:____$username</h3>";
         echo "<h3 style='margin-left: 70%'> Email:____$email</h3>";
-    } else if (isset($_SESSION['userData'])) {
-        $username = $_SESSION['userData']['username'];
-        $email = $_SESSION['userData']['email'];
+    } else if (isset($_SESSION['database'])) {
+        $username = $_SESSION['database']['username'];
+        $email = $_SESSION['database']['email'];
         echo "<h3 style='margin-left: 80%'> Username:____$username</h3>";
         echo "<h3 style='margin-left: 80%'> Email:____ $email</h3>";
     } else {
@@ -51,12 +51,11 @@
                 echo "<div class='item-description'>";
                 echo '<br>';
                 echo "<div class='checkbox-wrapper-13'>";
-                echo "<form action='todo/add_task.php' method='post'>";
+                echo "<form action='../todo/add_task.php' method='post' id='checkboxForm$itemId'>";
                 echo "<input type='hidden' name='itemId' value='$itemId'>";
                 echo "<button type='submit' name='delete' style='margin: 10px' class='delete-task-button'>Delete</button>";
                 echo "<button type='submit' name='update' style='margin-left: 90px; margin-top: 40px' class='add-task-button'>Update</button>";
-
-                echo "<input type='checkbox' name='done' value='$itemId' style='margin-left: 400px; margin-top: -40px'  $isChecked/>";
+                echo "<input type='checkbox' name='done[]' value='$itemId' style='margin-left: 400px; margin-top: -40px' $isChecked />";
 
                 echo "</form>";
                 echo "</div>";
@@ -68,15 +67,14 @@
         }
         ?>
 
-
     </div>
 
     <br>
     <div class="container">
-        <form action="todo/userPage.php" method="post">
+        <form action="../todo/userPage.php" method="post">
             <input type="hidden" name="userId"
                    value="<?php
-                   $id = $_SESSION['userData']['id'];
+                   $id = $_SESSION['database']['id'];
                    echo $id;
                    ?>">
             <button type="submit" class="add-task-button">
@@ -102,5 +100,16 @@
         <li></li>
     </ul>
 </div>
+
+<script>
+    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const form = this.closest('form');
+            const storedValue = form.querySelector('input[name="done[]"]').value;
+            form.querySelector('input[name="done[]"]').value = storedValue;
+            form.submit();
+        });
+    });
+</script>
 </body>
 </html>

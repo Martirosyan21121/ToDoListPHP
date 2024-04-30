@@ -1,13 +1,20 @@
 <?php
-require_once 'DBConnection.php';
+require_once '../database/DBConnection.php';
 
 class User extends DBConnection
 {
     public function register($username, $email, $password)
     {
+        $sql = "INSERT INTO todo.user (username, email, password) VALUES (?, ?, ?)";
+        $stmt = $this->connection->prepare($sql);
+        if (!$stmt) {
+            return false;
+        }
+        $stmt->bind_param("sss", $username, $email, $hashed_password);
         $hashed_password = md5($password);
-        $sql = "INSERT INTO todo.user (username, email, password) VALUES ('$username', '$email', '$hashed_password')";
-        return $this->connection->query($sql);
+        $success = $stmt->execute();
+        $stmt->close();
+        return $success;
     }
 
     public function emailExists($email)

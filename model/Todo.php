@@ -1,13 +1,21 @@
 <?php
-require_once '../userData/DBConnection.php';
+require_once '../database/DBConnection.php';
 
 class Todo extends DBConnection
 {
     public function save($text, $id)
     {
-        $sql = "INSERT INTO todo.todo_list (text, user_id) VALUES ('$text', '$id')";
-        return $this->connection->query($sql);
+        $sql = "INSERT INTO todo.todo_list (text, user_id) VALUES (?, ?)";
+        $stmt = $this->connection->prepare($sql);
+        if (!$stmt) {
+            return false;
+        }
+        $stmt->bind_param("si", $text, $id);
+        $success = $stmt->execute();
+        $stmt->close();
+        return $success;
     }
+
 
     public function getAllByUserId($userId)
     {
@@ -65,7 +73,14 @@ class Todo extends DBConnection
 
     public function updateTextById($todoId, $newText)
     {
-        $sql = "UPDATE todo.todo_list SET text = '$newText' WHERE id = '$todoId'";
-        return $this->connection->query($sql);
+        $sql = "UPDATE todo.todo_list SET text = ? WHERE id = ?";
+        $stmt = $this->connection->prepare($sql);
+        if (!$stmt) {
+            return false;
+        }
+        $stmt->bind_param("si", $newText, $todoId);
+        $success = $stmt->execute();
+        $stmt->close();
+        return $success;
     }
 }

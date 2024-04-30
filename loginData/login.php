@@ -1,6 +1,6 @@
 <?php
-require_once '../userData/User.php';
-require_once '../todo/Todo.php';
+require_once '../model/User.php';
+require_once '../model/Todo.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
@@ -22,9 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $show = $todo->getAllByUserId($userId);
         $_SESSION['allData'] = $show;
 
-        $_SESSION['userData'] = $userData;
+        $_SESSION['database'] = $userData;
 
-        header('Location: ../singlePage.php');
+        header('Location: ../view/singlePage.php');
 
     } else {
         header('Location: ../index.php?error=wrong_login');

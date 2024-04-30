@@ -41,7 +41,7 @@ $filed_login = '';
 
         <div class="agileits-top">
 
-            <form action="reg/login.php" method="post">
+            <form action="loginData/login.php" method="post">
                 <input class="text email" type="email" name="email" placeholder="Email" required="">
                 <?php if (!empty($wrong_email)) { ?>
                     <p style="color: red;"><?php echo $wrong_email; ?></p>
@@ -53,7 +53,7 @@ $filed_login = '';
                 <p style="color: red;"><?php echo $filed_login; ?></p>
                 <br>
             <?php } ?>
-            <p>Don't have an Account? <a href="register.php"> Register Now!</a></p>
+            <p>Don't have an Account? <a href="view/register.php"> Register Now!</a></p>
 
         </div>
     </div>

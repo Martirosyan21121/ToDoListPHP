@@ -1,5 +1,5 @@
 <?php
-require_once '../userData/User.php';
+require_once '../model/User.php';
 
 if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
     $username = $_POST ['username'];
@@ -9,22 +9,22 @@ if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
     $user = new User();
 
     if (strlen($username) < 5) {
-        header("Location: ../register.php?error=min_length");
+        header("Location: ../view/register.php?error=min_length");
         exit;
     }
 
     if ($user->emailExists($email)) {
-        header("Location: ../register.php?error=email_exist");
+        header("Location: ../view/register.php?error=email_exist");
         exit;
     }
 
  else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        header("Location: ../register.php?error=invalid_email");
+        header("Location: ../view/register.php?error=invalid_email");
         exit;
     }
 
     if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/', $password)) {
-        header("Location: ../register.php?error=password_pattern");
+        header("Location: ../view/register.php?error=password_pattern");
         exit;
     }
 
@@ -35,9 +35,9 @@ if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
         $_SESSION['email'] = $email;
 
         $userData = $user->getUserDataByEmail($email);
-        $_SESSION['userData'] = $userData;
+        $_SESSION['database'] = $userData;
 
-        header("Location: ../singlePage.php");
+        header("Location: ../view/singlePage.php");
         exit;
     } else {
         echo "Registration failed.";

@@ -32,7 +32,7 @@ if (isset($_GET['error']) && $_GET['error'] === 'password_pattern') {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="../css/style.css" rel="stylesheet" type="text/css" media="all" />
     <link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
 </head>
 <body>
@@ -41,7 +41,7 @@ if (isset($_GET['error']) && $_GET['error'] === 'password_pattern') {
     <div class="main-agileinfo">
         <div class="agileits-top">
 
-            <form action="reg/register_logic.php" method="post">
+            <form action="../registerData/register_logic.php" method="post">
                 <input class="text" type="text"  name="username" placeholder="Username" required="">
                 <?php if (!empty($username_length)) { ?>
                     <p style="color: red;"><?php echo $username_length; ?></p>
@@ -57,7 +57,7 @@ if (isset($_GET['error']) && $_GET['error'] === 'password_pattern') {
                 <input type="submit" value="REGISTER">
             </form>
 
-            <p>You have an Account? <a href="index.php"> Login Now!</a></p>
+            <p>You have an Account? <a href="../index.php"> Login Now!</a></p>
 
         </div>
     </div>

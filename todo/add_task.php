@@ -1,10 +1,12 @@
 <?php
-require_once '../todo/Todo.php';
+require_once '../model/Todo.php';
+require_once '../todo/TodoFunctions.php';
 
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $todo = new Todo();
+    $todoFun = new TodoFunctions();
 
     if (isset($_POST['delete'])) {
 
@@ -12,61 +14,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $deleteResult = $todo->deleteById($deleteId);
 
         if ($deleteResult) {
-            reloadTodoList();
+            $todoFun->reloadTodoList();
         } else {
-            handleError('delete_failed');
+            $todoFun->handleError('delete_failed');
         }
     }
 
     if (isset($_POST['update'])) {
         $updateId = $_POST['itemId'];
         $task = $todo->findTaskById($updateId);
-        updateTask($task);
+        $todoFun->updateTask($task);
     }
 
     if (isset($_POST['done'])) {
         $checkedItems = $_POST['done'];
-        $checked = $todo->markCompletedById($checkedItems);
-        if (!$checked) {
-            handleError('mark_failed');
-        } else {
-            reloadTodoList();
+        foreach ($checkedItems as $checkedItem) {
+            $checked = $todo->markCompletedById($checkedItem);
+            if (!$checked) {
+                $todoFun->handleError('mark_failed');
+            }
         }
+        $todoFun->reloadTodoList();
     }
-
 
     $text = $_POST['text'];
     $userId = $_POST['id'];
     $saveResult = $todo->save($text, $userId);
 
     if ($saveResult) {
-        reloadTodoList();
+        $todoFun->reloadTodoList();
     } else {
-        handleError('save_failed');
+        $todoFun->handleError('save_failed');
     }
 }
 
-function reloadTodoList()
-{
-    $todo = new Todo();
-    $userId = $_SESSION['userData']['id'];
-    $show = $todo->getAllByUserId($userId);
-    $_SESSION['allData'] = $show;
-    header('Location: ../singlePage.php');
-    exit();
-}
 
-function updateTask($task)
-{
-    $_SESSION['task'] = $task;
-    header('Location: ../update_task.php');
-    exit();
-}
-
-function handleError($errorType)
-{
-    header("Location: ../addTask.php?error=$errorType");
-    exit();
-}
 
 
