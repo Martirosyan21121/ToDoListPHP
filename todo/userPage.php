@@ -5,5 +5,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $_SESSION['id'] = $text;
     header('Location: ../view/addTask.php');
-exit();
+    exit();
 }

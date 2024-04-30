@@ -76,6 +76,7 @@
             <input type="hidden" name="userId"
                    value="<?php
                    $id = $_SESSION['database']['id'];
+                   echo "$id"
                    ?>">
             <button type="submit" class="add-task-button">
                 Add task
