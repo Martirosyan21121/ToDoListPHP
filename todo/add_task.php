@@ -2,7 +2,7 @@
 require_once '../model/Todo.php';
 require_once '../todo/TodoFunctions.php';
 
-//session_start();
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $todo = new Todo();

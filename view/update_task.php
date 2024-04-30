@@ -1,3 +1,8 @@
+<?php
+
+session_start()
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,9 +30,8 @@
             <form action="../todo/update.php" method="post">
 
                 <?php
-                session_start();
-
                 if (isset($_SESSION['task'])) {
+
                     $id_update = $_SESSION['task']['id'];
                     $text = $_SESSION['task']['text'];
                     ?>
