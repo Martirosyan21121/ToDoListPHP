@@ -1,9 +1,9 @@
 <?php
 require_once '../view/singlePage.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $text = $_POST['userId'];
+    $id = $_POST['userId'];
 
-    $_SESSION['id'] = $text;
+    $_SESSION['id'] = $id;
     header('Location: ../view/addTask.php');
     exit();
 }
