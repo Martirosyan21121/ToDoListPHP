@@ -16,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         handleError('update_failed');
     }
     header('Location: ../addTask.php');
-
 }
 
 function reloadTodoList()

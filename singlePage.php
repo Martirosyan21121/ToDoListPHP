@@ -4,6 +4,7 @@
     <title>Single page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script type="application/x-javascript"> addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
         }, false);
@@ -17,7 +18,6 @@
 <body>
 <div class="main-w3layouts wrapper">
     <h1>Single Page</h1>
-
     <a class="add-task-button" href="todo/logout.php" style="margin-left: 50px">
         Logout
     </a>
@@ -32,12 +32,13 @@
     } else if (isset($_SESSION['userData'])) {
         $username = $_SESSION['userData']['username'];
         $email = $_SESSION['userData']['email'];
-        echo "<h3 style='margin-left: 70%'> Username:____$username</h3>";
-        echo "<h3 style='margin-left: 70%'> Email:____ $email</h3>";
+        echo "<h3 style='margin-left: 80%'> Username:____$username</h3>";
+        echo "<h3 style='margin-left: 80%'> Email:____ $email</h3>";
     } else {
         echo "<p>No username or email found.</p>";
     }
     ?>
+
     <div class="cart">
         <?php
         if (!empty($_SESSION['allData'])) {
@@ -52,9 +53,10 @@
 
                 echo "<form action='todo/add_task.php' method='post'>";
                 echo "<input type='hidden' name='itemId' value='$itemId'>";
-                echo "<button type='submit' name='delete' style='margin: 10px'>Delete</button>";
-                echo "<button type='submit' name='update' style='margin: 10px'>Update</button>";
-                echo "<input type='checkbox' name='done[]' value='$itemId' style='margin: 10px'  $isChecked/>";
+                echo "<button type='submit' name='delete' style='margin: 10px' class='delete-task-button'>Delete</button>";
+                echo "<button type='submit' name='update' style='margin-left: 90px' class='add-task-button'>Update</button>";
+                echo "<input type='checkbox' name='done' value='$itemId' style='margin-left: 150px'  $isChecked/>";
+
                 echo "</form>";
 
                 echo "</div>";
@@ -97,6 +99,5 @@
         <li></li>
     </ul>
 </div>
-
 </body>
 </html>
