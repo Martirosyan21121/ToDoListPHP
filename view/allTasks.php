@@ -52,9 +52,9 @@ ob_start(); ?>
                 echo "<div class='checkbox-wrapper-13'>";
                 echo "<form action='../todo/add_task.php' method='post' >";
                 echo "<input type='hidden' name='itemId' value='$itemId'>";
-                echo "<button type='submit' name='delete' style='margin: 10px' class='delete-task-button'>Delete</button>";
-                echo "<button type='submit' name='update' style='margin-left: 90px; margin-top: 20px' class='add-task-button'>Update</button>";
-                echo "<select id='statusSelect' name='status' style='margin-left: 90px'>";
+                echo "<button type='submit' name='delete' style='margin: 20px' class='delete-task-button'>Delete</button>";
+                echo "<button type='submit' name='update' style='margin-left: 150px; margin-top: 20px' class='add-task-button'>Update</button>";
+                echo "<select id='statusSelect' name='status' style='margin-left: 150px'>";
                 echo "<option value='0' " . ($selected == '0' ? 'selected' : '') . ">Select Status</option>";
                 echo "<option value='1' " . ($selected == '1' ? 'selected' : '') . ">Done</option>";
                 echo "<option value='2' " . ($selected == '2' ? 'selected' : '') . ">In Process</option>";

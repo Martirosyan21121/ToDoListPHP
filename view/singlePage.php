@@ -36,6 +36,13 @@ ob_start(); ?>
         ?>
     </nav>
 
+   <?php
+   if (isset($_SESSION['tasks_count'])) {
+       $count = $_SESSION['tasks_count'];
+       echo "<h3 style='text-align: center'>$count</h3>";
+   }
+   ?>
+
     <?php
     if (isset($_SESSION['username']) && isset($_SESSION['email'])) {
         $username = $_SESSION['username'];

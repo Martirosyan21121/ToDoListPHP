@@ -19,6 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $userData = $user->getUserDataByEmail($email);
         $userId = $userData['id'];
 
+        $show = $todo->getAllTasksCountByUserId($userId);
+        $_SESSION['tasks_count'] = $show;
+
         $_SESSION['user'] = $userData;
         header('Location: ../view/singlePage.php');
 

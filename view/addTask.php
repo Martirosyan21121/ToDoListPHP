@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="">
 <head>
-    <title>Add task</title>
+    <title>Add task page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
@@ -18,7 +18,7 @@
             <form action="../todo/add_task.php" method="post">
                 <input class="text" type="text"  name="text" placeholder="Text" required="">
                 <br>
-                <input type="datetime-local"  name="dataTime" placeholder="Data time" required="">
+                <input type="datetime-local"  name="dataTime" placeholder="Data time" >
                 <?php
                 session_start();
                 if(isset($_SESSION['id'])) {

@@ -34,9 +34,12 @@ session_start()
 
                     $id_update = $_SESSION['task']['id'];
                     $text = $_SESSION['task']['text'];
+                    $date_time = $_SESSION['task']['date_time'];
                     ?>
 
                     <input class="text" type="text" name="text" placeholder="Text" value="<?php echo $text ?>" required="">
+                    <br>
+                    <input type="datetime-local"  name="dateTime" value="<?php echo $date_time?>" placeholder="Data time" required="">
 
                     <input class="text" type="hidden" name="id" value="<?php echo $id_update ?>">
                     <?php

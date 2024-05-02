@@ -31,6 +31,24 @@ class Todo extends DBConnection
             return array();
         }
     }
+//
+//    public function getAllTasksCountByUserId($userId)
+//    {
+//        $sql = "SELECT * FROM todo.todo_list WHERE user_id = '$userId'";
+//        $result = $this->connection->query($sql);
+//
+//        if ($result->num_rows > 0) {
+//            $count = 0;
+//            while ($result->fetch_assoc()) {
+//                $count += $count;
+//            }
+//            return count();
+//        } else {
+//            return array();
+//        }
+//    }
+
+
 
     public function deleteById($todoId)
     {
@@ -59,16 +77,20 @@ class Todo extends DBConnection
         }
     }
 
-    public function updateTextById($todoId, $newText)
+    public function updateTextById($todoId, $newText, $newDateTime)
     {
-        $sql = "UPDATE todo.todo_list SET text = ? WHERE id = ?";
+        $sql = "UPDATE todo.todo_list SET text = ?, date_time = ? WHERE id = ?";
         $stmt = $this->connection->prepare($sql);
         if (!$stmt) {
             return false;
         }
-        $stmt->bind_param("si", $newText, $todoId);
+        $stmt->bind_param("ssi", $newText, $newDateTime, $todoId);
         $success = $stmt->execute();
         $stmt->close();
-        return $success;
+        if ($success) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
