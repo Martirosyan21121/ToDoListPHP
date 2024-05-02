@@ -55,9 +55,11 @@ ob_start(); ?>
     <?php
     echo "<form action='../user/user_update.php' method='post'>";
     if (isset($_SESSION['user'])) {
-        echo "<button class='add-task-button' style='margin-left: 80%' type='submit' name='user_data'>Update your data</button>";
+        $email = $_SESSION['user']['email'];
+        echo "<input type='hidden' name='email' value='$email'>";
+        echo "<button class='add-task-button' style='margin-left: 80%;' type='submit' name='update_user'>Update your data</button>";
     }
-    echo "</form>"
+    echo "</form>";
     ?>
 
     <div class="colorlibcopy-agile">
@@ -76,26 +78,5 @@ ob_start(); ?>
         <li></li>
     </ul>
 </div>
-
-<script>
-    //$(document).ready(function () {
-    //    $('#statusSelect').change(function () {
-    //        let status = $(this).val();
-    //        let itemId = "<?php //echo $itemId; ?>//";
-    //        $.ajax({
-    //            type: 'POST',
-    //            url: '../todo/add_task.php',
-    //            data: {status: status, itemId: itemId},
-    //            success: function (response) {
-    //                console.log(response);
-    //            },
-    //            error: function (xhr, status, error) {
-    //                console.error(error);
-    //            }
-    //        });
-    //    });
-    //});
-</script>
-
 </body>
 </html>

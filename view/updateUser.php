@@ -22,13 +22,11 @@
 
             <form action="../user/user_update.php" method="post">
                 <?php
-                if (!empty($_SESSION['user_update'])) {
-                    foreach ($_SESSION['user_update'] as $row) {
-
-                        $user_id = $row['user_update']['id'];
-                        $username = $row['user_update']['username'];
-                        $email = $row['user_update']['email'];
-                        $password = $row['user_update']['password'];
+                if (!isset($_SESSION['user_update'])) {
+                        $user_id = ['user_update']['id'];
+                        $username = ['user_update']['username'];
+                        $email = ['user_update']['email'];
+                        $password = ['user_update']['password'];
                     ?>
                     <input class="text" type="text" name="username" placeholder="Username"
                            value="<?php echo $username ?>" required="">
@@ -54,7 +52,7 @@
                     <input class="text" type="hidden" name="user_id" value="<?php echo $user_id ?>">
 
                     <?php
-                    }
+
                 }
                 ?>
                 <input type="submit" value="UPDATE">
