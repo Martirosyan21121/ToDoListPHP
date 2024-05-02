@@ -3,19 +3,18 @@ require_once '../database/DBConnection.php';
 
 class Todo extends DBConnection
 {
-    public function save($text, $id)
+    public function save($text, $dataTime , $id)
     {
-        $sql = "INSERT INTO todo.todo_list (text, user_id) VALUES (?, ?)";
+        $sql = "INSERT INTO todo.todo_list (text, date_time ,user_id) VALUES (?, ?, ?)";
         $stmt = $this->connection->prepare($sql);
         if (!$stmt) {
             return false;
         }
-        $stmt->bind_param("si", $text, $id);
+        $stmt->bind_param("ssi", $text, $dataTime, $id);
         $success = $stmt->execute();
         $stmt->close();
         return $success;
     }
-
 
     public function getAllByUserId($userId)
     {
@@ -39,24 +38,13 @@ class Todo extends DBConnection
         return $this->connection->query($sql);
     }
 
-    public function markCompletedById($todoId)
+    public function markCompletedById($todoId, $selectedValue)
     {
-        $sqlCheck = "SELECT task_done FROM todo.todo_list WHERE id = '$todoId'";
-        $resultCheck = $this->connection->query($sqlCheck);
-
-        if ($resultCheck && $resultCheck->num_rows > 0) {
-            $row = $resultCheck->fetch_assoc();
-            $taskDone = $row['task_done'];
-
-            if ($taskDone == 0) {
-                $sqlUpdate = "UPDATE todo.todo_list SET task_done = 1 WHERE id = '$todoId'";
-                return $this->connection->query($sqlUpdate);
-            } else if ($taskDone == 1) {
-                $sqlUpdate = "UPDATE todo.todo_list SET task_done = 0 WHERE id = '$todoId'";
-                return $this->connection->query($sqlUpdate);
-            }
+        if ($selectedValue < 0 || $selectedValue > 3) {
+            return false;
         }
-        return false;
+        $sqlUpdate = "UPDATE todo.todo_list SET status = '$selectedValue' WHERE id = '$todoId'";
+        return $this->connection->query($sqlUpdate);
     }
 
     public function findTaskById($todoId)

@@ -17,6 +17,8 @@
 
             <form action="../todo/add_task.php" method="post">
                 <input class="text" type="text"  name="text" placeholder="Text" required="">
+                <br>
+                <input type="datetime-local"  name="dataTime" placeholder="Data time" required="">
                 <?php
                 session_start();
                 if(isset($_SESSION['id'])) {

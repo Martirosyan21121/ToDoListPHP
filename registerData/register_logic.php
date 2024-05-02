@@ -34,9 +34,6 @@ if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
         $_SESSION['username'] = $username;
         $_SESSION['email'] = $email;
 
-        $userData = $user->getUserDataByEmail($email);
-        $_SESSION['database'] = $userData;
-
         header("Location: ../view/singlePage.php");
         exit;
     } else {

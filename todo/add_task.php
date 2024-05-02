@@ -26,20 +26,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $todoFun->updateTask($task);
     }
 
-    if (isset($_POST['done'])) {
-        $checkedItems = $_POST['done'];
-        foreach ($checkedItems as $checkedItem) {
-            $checked = $todo->markCompletedById($checkedItem);
-            if (!$checked) {
-                $todoFun->handleError('mark_failed');
-            }
+    if (isset($_POST['status']) && isset($_POST['itemId'])) {
+        $status = $_POST['status'];
+        $itemId = $_POST['itemId'];
+        $selected = $todo->markCompletedById($itemId, $status);
+
+        if (!$selected) {
+            $todoFun->handleError('selected_failed');
         }
         $todoFun->reloadTodoList();
     }
 
     $text = $_POST['text'];
+    $dataTime = $_POST['dataTime'];
     $userId = $_POST['id'];
-    $saveResult = $todo->save($text, $userId);
+    $saveResult = $todo->save($text, $dataTime, $userId);
 
     if ($saveResult) {
         $todoFun->reloadTodoList();

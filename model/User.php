@@ -50,7 +50,7 @@ class User extends DBConnection
         if ($result->num_rows == 1) {
             return $result->fetch_assoc();
         } else {
-            return null; // User not found
+            return null;
         }
     }
 

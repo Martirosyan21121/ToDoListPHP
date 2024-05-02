@@ -1,8 +1,7 @@
-
-    <?php
-    session_start();
-    ob_start();?>
-    <!DOCTYPE html>
+<?php
+session_start();
+ob_start(); ?>
+<!DOCTYPE html>
 <html lang="">
 <head>
     <title>Single page</title>
@@ -23,65 +22,43 @@
 </head>
 <body>
 <div class="main-w3layouts wrapper">
-    <h1>Single Page</h1>
-    <a class="add-task-button" href="../loginData/logout.php" style="margin-left: 50px">
-        Logout
-    </a>
+    <h1>Your profile</h1>
+    <nav class="top-bar">
+        <a class="add-task-button" href="../loginData/logout.php" style="margin-left: 50px">Logout</a>
+        <?php
+        echo "<form action='../user/all_tasks.php' method='post'>";
+        if (isset($_SESSION['user'])) {
+            $email = $_SESSION['user']['email'];
+            echo "<input type='hidden' name='email' value='$email'>";
+            echo "<button class='add-task-button' style='margin-left: 50px;' type='submit' name='update_user'>All tasks</button>";
+        }
+        echo "</form>";
+        ?>
+    </nav>
 
     <?php
     if (isset($_SESSION['username']) && isset($_SESSION['email'])) {
         $username = $_SESSION['username'];
         $email = $_SESSION['email'];
-        echo "<h3 style='margin-left: 70%'> Username:____$username</h3>";
-        echo "<h3 style='margin-left: 70%'> Email:____$email</h3>";
-    } else if (isset($_SESSION['database'])) {
-        $username = $_SESSION['database']['username'];
-        $email = $_SESSION['database']['email'];
+        echo "<h3 style='margin-left: 80%'> Username:____$username</h3>";
+        echo "<h3 style='margin-left: 80%'> Email:____$email</h3>";
+    } else if (isset($_SESSION['user'])) {
+        $username = $_SESSION['user']['username'];
+        $email = $_SESSION['user']['email'];
         echo "<h3 style='margin-left: 80%'> Username:____$username</h3>";
         echo "<h3 style='margin-left: 80%'> Email:____ $email</h3>";
     } else {
         echo "<p>No username or email found.</p>";
     }
     ?>
-
-    <div class="cart">
-        <?php
-        if (!empty($_SESSION['allData'])) {
-            foreach ($_SESSION['allData'] as $row) {
-                $text = $row['text'];
-                $itemId = $row['id'];
-                $isChecked = $row['task_done'] == 1 ? 'checked' : '';
-                echo "<div class='cart-item'>";
-                echo "<div class='item-title'>$text</div>";
-                echo "<div class='item-description'>";
-                echo '<br>';
-                echo "<div class='checkbox-wrapper-13'>";
-                echo "<form action='../todo/add_task.php' method='post'>";
-                echo "<input type='hidden' name='itemId' value='$itemId'>";
-                echo "<button type='submit' name='delete' style='margin: 10px' class='delete-task-button'>Delete</button>";
-                echo "<button type='submit' name='update' style='margin-left: 90px; margin-top: 40px' class='add-task-button'>Update</button>";
-                echo "<input type='checkbox' class='checkbox-group' name='done[]' value='$itemId' style='margin-left: 400px; margin-top: -40px' $isChecked/>";
-                echo "</form>";
-                echo "</div>";
-                echo "</div>";
-                echo "</div>";
-            }
-        } else {
-            echo "<p>You don't have any data !!!</p>";
-        }
-        ?>
-    </div>
-
     <br>
-    <div class="container">
-        <form action="../todo/userPage.php" method="post">
-            <input type="hidden" name="userId"
-                   value="<?= $_SESSION['database']['id']?>">
-            <button type="submit" class="add-task-button">
-                Add task
-            </button>
-        </form>
-    </div>
+    <?php
+    echo "<form action='../user/user_update.php' method='post'>";
+    if (isset($_SESSION['user'])) {
+        echo "<button class='add-task-button' style='margin-left: 80%' type='submit' name='user_data'>Update your data</button>";
+    }
+    echo "</form>"
+    ?>
 
     <div class="colorlibcopy-agile">
         <p>© 2024 project ToDo list using PHP</p>
@@ -99,48 +76,26 @@
         <li></li>
     </ul>
 </div>
+
 <script>
-    $(document).ready(function(){
-        $('.checkbox-group').click(function(){
-            var formData = $(this).serialize();
-            $.ajax({
-                type: 'POST',
-                url: '../todo/add_task.php',
-                data: formData,
-                success: function(response){
-                    location.reload();
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                }
-            });
-
-        });
-
-        $('.checkbox-group').click(function(){
-            $(this).prop('checked', !$(this).prop('checked'));
-
-            var formData = $(this).serialize();
-            $.ajax({
-                type: 'POST',
-                url: '../todo/add_task.php',
-                data: formData,
-                success: function(response){
-                    location.reload();
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                }
-            });
-        });
-
-    });
-
-
+    //$(document).ready(function () {
+    //    $('#statusSelect').change(function () {
+    //        let status = $(this).val();
+    //        let itemId = "<?php //echo $itemId; ?>//";
+    //        $.ajax({
+    //            type: 'POST',
+    //            url: '../todo/add_task.php',
+    //            data: {status: status, itemId: itemId},
+    //            success: function (response) {
+    //                console.log(response);
+    //            },
+    //            error: function (xhr, status, error) {
+    //                console.error(error);
+    //            }
+    //        });
+    //    });
+    //});
 </script>
-
 
 </body>
 </html>
-
-<!--../todo/add_task.php-->

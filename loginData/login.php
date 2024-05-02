@@ -16,14 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     session_start ();
     $login = $user->login($email, $password);
     if ($login) {
-
         $userData = $user->getUserDataByEmail($email);
         $userId = $userData['id'];
-        $show = $todo->getAllByUserId($userId);
-        $_SESSION['allData'] = $show;
 
-        $_SESSION['database'] = $userData;
-
+        $_SESSION['user'] = $userData;
         header('Location: ../view/singlePage.php');
 
     } else {
