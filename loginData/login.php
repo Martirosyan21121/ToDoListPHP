@@ -7,8 +7,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'];
     $user = new User();
 
-    $todo = new Todo();
-
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         header("Location: ../index.php?error=invalid_email");
         exit;
@@ -17,12 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $login = $user->login($email, $password);
     if ($login) {
         $userData = $user->getUserDataByEmail($email);
-        $userId = $userData['id'];
 
-        $show = $todo->getAllTasksCountByUserId($userId);
-        $_SESSION['tasks_count'] = $show;
+        $user->userData($userData);
 
-        $_SESSION['user'] = $userData;
         header('Location: ../view/singlePage.php');
 
     } else {

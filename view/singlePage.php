@@ -1,6 +1,9 @@
 <?php
+require_once "../model/User.php";
 session_start();
-ob_start(); ?>
+ob_start();
+
+?>
 <!DOCTYPE html>
 <html lang="">
 <head>
@@ -36,29 +39,34 @@ ob_start(); ?>
         ?>
     </nav>
 
-   <?php
-   if (isset($_SESSION['tasks_count'])) {
-       $count = $_SESSION['tasks_count'];
-       echo "<h3 style='text-align: center'>$count</h3>";
-   }
-   ?>
 
     <?php
-    if (isset($_SESSION['username']) && isset($_SESSION['email'])) {
-        $username = $_SESSION['username'];
-        $email = $_SESSION['email'];
-        echo "<h3 style='margin-left: 80%'> Username:____$username</h3>";
-        echo "<h3 style='margin-left: 80%'> Email:____$email</h3>";
-    } else if (isset($_SESSION['user'])) {
+    if (isset($_SESSION['user'])) {
+        $user = new User();
         $username = $_SESSION['user']['username'];
         $email = $_SESSION['user']['email'];
-        echo "<h3 style='margin-left: 80%'> Username:____$username</h3>";
+        $profilePic = $_SESSION['user']['user_image'];
+        $userId = $_SESSION['user']['id'];
+
+        $userImage = $user->getProfilePictureById($userId);
+
+        if ($userImage === null) {
+            echo "<img class='avatar' alt='Avatar' src='../img/profilePick.png' style='margin-left: 75%'>";
+        } else {
+            $profilePicBase64 = base64_encode($userImage);
+            $imageSrc = 'data:image/jpeg;base64,' . $profilePicBase64;
+            echo "<img class='avatar' alt='Avatar' src='$imageSrc' style='margin-left: 75%'>";
+        }
+
+        echo "<h3 style='margin-left: 80%; margin-top: -45px'> Username:____$username</h3>";
         echo "<h3 style='margin-left: 80%'> Email:____ $email</h3>";
     } else {
         echo "<p>No username or email found.</p>";
     }
     ?>
+
     <br>
+
     <?php
     echo "<form action='../user/user_update.php' method='post'>";
     if (isset($_SESSION['user'])) {

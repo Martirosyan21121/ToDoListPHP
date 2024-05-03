@@ -12,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_SESSION['userData'] = $userData;
 
     $userId = $userData['id'];
-
     $tasks = $todo->getAllByUserId($userId);
 
     $_SESSION['allTasks'] = $tasks;

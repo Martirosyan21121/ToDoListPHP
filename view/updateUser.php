@@ -1,3 +1,17 @@
+<?php
+session_start();
+
+$email_exist = '';
+if (isset($_GET['error']) && $_GET['error'] === 'invalid_email') {
+    $email_exist = 'Invalid email.';
+}
+
+$username_length = '';
+if (isset($_GET['error']) && $_GET['error'] === 'min_length') {
+    $username_length = "Username minimum length must be at least 5 characters.";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="">
 <head>
@@ -20,13 +34,14 @@
     <div class="main-agileinfo">
         <div class="agileits-top">
 
-            <form action="../user/user_update.php" method="post">
+            <form action="../user/user_update_logic.php" method="post">
                 <?php
-                if (!isset($_SESSION['user_update'])) {
-                        $user_id = ['user_update']['id'];
-                        $username = ['user_update']['username'];
-                        $email = ['user_update']['email'];
-                        $password = ['user_update']['password'];
+                if (isset($_SESSION['user_data'])) {
+                    $user_data = $_SESSION['user_data'];
+
+                    $user_id = $user_data['id'];
+                    $username = $user_data['username'];
+                    $email = $user_data['email'];
                     ?>
                     <input class="text" type="text" name="username" placeholder="Username"
                            value="<?php echo $username ?>" required="">
@@ -42,17 +57,8 @@
                         <p style="color: red;"><?php echo $email_exist; ?></p>
                     <?php } ?>
 
-                    <input class="text" type="password" name="password" placeholder="Password"
-                           value="<?php echo $password ?>" required="">
-
-                    <?php if (!empty($password_p)) { ?>
-                        <p style="color: red;"><?php echo $password_p; ?></p>
-                    <?php } ?>
-
-                    <input class="text" type="hidden" name="user_id" value="<?php echo $user_id ?>">
-
+                    <input class="text" type="hidden" name="id" value="<?php echo $user_id ?>">
                     <?php
-
                 }
                 ?>
                 <input type="submit" value="UPDATE">

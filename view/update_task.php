@@ -1,5 +1,4 @@
 <?php
-
 session_start()
 ?>
 
@@ -53,7 +52,7 @@ session_start()
     </div>
 
     <div class="container">
-        <form action="singlePage.php" method="post">
+        <form action="../view/allTasks.php" method="post">
             <button type="submit" class="add-task-button">
                 Back
             </button>

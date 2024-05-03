@@ -5,6 +5,7 @@ if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
     $username = $_POST ['username'];
     $email = $_POST ['email'];
     $password = $_POST ['password'];
+    $userImage = $_POST ['userImage'];
 
     $user = new User();
 
@@ -16,9 +17,7 @@ if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
     if ($user->emailExists($email)) {
         header("Location: ../view/register.php?error=email_exist");
         exit;
-    }
-
- else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         header("Location: ../view/register.php?error=invalid_email");
         exit;
     }
@@ -29,10 +28,11 @@ if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
     }
 
     session_start();
-    $registered = $user->register($username, $email, $password);
+    $registered = $user->register($username, $email, $password, $userImage);
     if ($registered) {
-        $_SESSION['username'] = $username;
-        $_SESSION['email'] = $email;
+
+        $userData = $user->getUserDataByEmail($email);
+        $user->userData($userData);
 
         header("Location: ../view/singlePage.php");
         exit;

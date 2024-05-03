@@ -53,9 +53,9 @@ if (isset($_GET['error']) && $_GET['error'] === 'wrong_login') {
                 <br>
             <?php } ?>
             <p>Don't have an Account? <a href="view/register.php"> Register Now!</a></p>
-
         </div>
     </div>
+
     <div class="colorlibcopy-agile">
         <p>© 2024 project ToDo list using PHP</p>
     </div>

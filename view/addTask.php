@@ -18,7 +18,7 @@
             <form action="../todo/add_task.php" method="post">
                 <input class="text" type="text"  name="text" placeholder="Text" required="">
                 <br>
-                <input type="datetime-local"  name="dataTime" placeholder="Data time" >
+                <input type="datetime-local"  name="dataTime" placeholder="Data time" step="60">
                 <?php
                 session_start();
                 if(isset($_SESSION['id'])) {
@@ -34,7 +34,7 @@
     </div>
 
     <div class="container">
-        <form action="singlePage.php" method="post">
+        <form action="../view/allTasks.php" method="post">
             <button type="submit" class="add-task-button">
                 Back
             </button>
@@ -58,6 +58,5 @@
     </ul>
 </div>
 
-<!-- //main -->
 </body>
 </html>

@@ -32,49 +32,91 @@ ob_start(); ?>
                 $text = $row['text'];
                 $dataTime = $row['date_time'];
                 $itemId = $row['id'];
-                $selected = '';
-                if ($row['status'] == 0) {
-                    $selected = '0';
-                } elseif ($row['status'] == 1) {
-                    $selected = '1';
-                } elseif ($row['status'] == 2) {
-                    $selected = '2';
-                } elseif ($row['status'] == 3) {
-                    $selected = '3';
-                }
+                $createdAt = $row['created_at'];
 
-                echo "<div class='cart-item'>";
-                echo "<div class='item-title' style='max-width: 350px'>$text</div>";
-                echo "<button class='modal-btn' style='margin-left: 650px; margin-top: -20px'>&boxH;</button>";
-                echo "<div class='item-description' style='margin-left: 600px; margin-top: 10px'>$dataTime</div>";
-                echo "<div class='item-description'>";
-                echo '<br>';
-                echo "<div class='checkbox-wrapper-13'>";
-                echo "<form action='../todo/add_task.php' method='post' >";
-                echo "<input type='hidden' name='itemId' value='$itemId'>";
-                echo "<button type='submit' name='delete' style='margin: 20px' class='delete-task-button'>Delete</button>";
-                echo "<button type='submit' name='update' style='margin-left: 150px; margin-top: 20px' class='add-task-button'>Update</button>";
-                echo "<select id='statusSelect' name='status' style='margin-left: 150px'>";
-                echo "<option value='0' " . ($selected == '0' ? 'selected' : '') . ">Select Status</option>";
-                echo "<option value='1' " . ($selected == '1' ? 'selected' : '') . ">Done</option>";
-                echo "<option value='2' " . ($selected == '2' ? 'selected' : '') . ">In Process</option>";
-                echo "<option value='3' " . ($selected == '3' ? 'selected' : '') . ">In Test</option>";
-                echo "</select>";
-                echo "</form>";
-                echo "</div>";
-                echo "</div>";
-                echo "</div>";
+                // Set selected option based on status
+                switch ($row['status']) {
+                    case 0:
+                        $selected = '0';
+                        break;
+                    case 1:
+                        $selected = '1';
+                        break;
+                    case 2:
+                        $selected = '2';
+                        break;
+                    case 3:
+                        $selected = '3';
+                        break;
+                    default:
+                        $selected = '';
+                }
+                $modalId = "modal-$itemId";
+                $btnId = "modal-btn-$itemId";
+                ?>
+                <div class='cart-item'>
+                    <div class='item-title' style='max-width: 350px'><?php echo $text; ?></div>
+                    <button id='<?php echo $btnId; ?>' class='modal-btn' value='<?php echo $itemId; ?>'
+                            style='margin-left: 650px; margin-top: -20px'>&boxH;
+                    </button>
+                    <div class='item-description' style='margin-left: 550px; margin-top: 10px; color: #328a02'>From
+                        - <?php echo $createdAt; ?></div>
+                    <div class='item-description' style='margin-left: 550px; margin-top: 10px; color: red'>Until
+                        - <?php echo $dataTime; ?></div>
+                    <div class='item-description'>
+                        <br>
+                        <div class='checkbox-wrapper-13'>
+                            <form action='../todo/add_task.php' method='post'>
+                                <input type='hidden' name='itemId' value='<?php echo $itemId; ?>'>
+                                <button type='submit' name='delete' style='margin: 20px' class='delete-task-button'>
+                                    Delete
+                                </button>
+                                <button type='submit' name='update' style='margin-left: 170px; margin-top: 20px;'
+                                        class='add-task-button'>Update
+                                </button>
+                                <select id='statusSelect' class='custom-select' name='status'
+                                        style=' margin-right: 0; margin-left: 90px;  color: #007bff'>
+                                    <option value='0' <?php echo ($selected == '0') ? 'selected' : ''; ?>>Not Started
+                                    </option>
+                                    <option value='1' <?php echo ($selected == '1') ? 'selected' : ''; ?>>Done</option>
+                                    <option value='2' <?php echo ($selected == '2') ? 'selected' : ''; ?>>In Process
+                                    </option>
+                                    <option value='3' <?php echo ($selected == '3') ? 'selected' : ''; ?>>In Test
+                                    </option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id='<?php echo $modalId; ?>' class='modal'>
+                        <div class='modal-content'>
+                            <span class='close'>&times;</span>
+                            <?php
+                            $status = '';
+                            if ($selected == '0') {
+                                $status = 'Not Started';
+                            } else if ($selected == '1') {
+                                $status = 'Done';
+                            } else if ($selected == '2') {
+                                $status = 'In Process';
+                            } else if ($selected == '3') {
+                                $status = 'In Test';
+                            }
+                            ?>
+                            <p style='margin: 10px'>Number - <?php echo $itemId; ?></p>
+                            <p style='margin: 10px'>Subject - <?php echo $text; ?></p>
+                            <p style='margin: 10px'>Status - <?php echo $status; ?></p>
+                            <p style='color: #328a02; margin: 10px'>Created/Updated - <?php echo $createdAt; ?></p>
+                            <p style='color: red; margin: 10px'>Deadline - <?php echo $dataTime; ?></p>
+                        </div>
+                    </div>
+                </div>
+                <?php
             }
         } else {
             echo "<p>You don't have any data !!!</p>";
         }
         ?>
-    </div>
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <p>This is a modal window. You can put any content here.</p>
-        </div>
     </div>
     <br>
 
@@ -105,25 +147,8 @@ ob_start(); ?>
     </ul>
 </div>
 
-<script>
-    $(document).ready(function () {
-        $('#statusSelect').change(function () {
-            let status = $(this).val();
-            let itemId = "<?php echo $itemId; ?>";
-            $.ajax({
-                type: 'POST',
-                url: '../todo/add_task.php',
-                data: {status: status, itemId: itemId},
-                success: function (response) {
-                    console.log(response);
-                },
-                error: function (xhr, status, error) {
-                    console.error(error);
-                }
-            });
-        });
-    });
-</script>
+<script src="../js/script.js"></script>
+<script src="../js/taskHistory.js"></script>
 
 </body>
 </html>

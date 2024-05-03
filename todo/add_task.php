@@ -40,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $text = $_POST['text'];
     $dataTime = $_POST['dataTime'];
     $userId = $_POST['id'];
+
     $saveResult = $todo->save($text, $dataTime, $userId);
 
     if ($saveResult) {
