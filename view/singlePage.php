@@ -39,7 +39,6 @@ ob_start();
         ?>
     </nav>
 
-
     <?php
     if (isset($_SESSION['user'])) {
         $user = new User();
@@ -51,20 +50,20 @@ ob_start();
         $userImage = $user->getProfilePictureById($userId);
 
         if ($userImage === null) {
-            echo "<img class='avatar' alt='Avatar' src='../img/profilePick.png' style='margin-left: 75%'>";
+            echo "<img class='avatar' alt='Avatar' src='../img/profilePick.png' style='margin-left: 80%; margin-top: -30px'>";
         } else {
-            $profilePicBase64 = base64_encode($userImage);
-            $imageSrc = 'data:image/jpeg;base64,' . $profilePicBase64;
-            echo "<img class='avatar' alt='Avatar' src='$imageSrc' style='margin-left: 75%'>";
+
+            echo '<img class="avatar" alt="Avatar" src="data:image/jpeg;base64,' . base64_encode($userImage) . '" style="margin-left: 80%; margin-top: -30px">';
+
         }
 
-        echo "<h3 style='margin-left: 80%; margin-top: -45px'> Username:____$username</h3>";
-        echo "<h3 style='margin-left: 80%'> Email:____ $email</h3>";
+        echo "<h3 style='margin-left: 75%; margin-top: 10px'> Username:____$username</h3>";
+        echo "<br>";
+        echo "<h3 style='margin-left: 75%; margin-top: -10px'> Email:____ $email</h3>";
     } else {
         echo "<p>No username or email found.</p>";
     }
     ?>
-
     <br>
 
     <?php
@@ -72,7 +71,7 @@ ob_start();
     if (isset($_SESSION['user'])) {
         $email = $_SESSION['user']['email'];
         echo "<input type='hidden' name='email' value='$email'>";
-        echo "<button class='add-task-button' style='margin-left: 80%;' type='submit' name='update_user'>Update your data</button>";
+        echo "<button class='add-task-button' style='margin-left: 75%;' type='submit' name='update_user'>Update your data</button>";
     }
     echo "</form>";
     ?>

@@ -39,9 +39,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $text = $_POST['text'];
     $dataTime = $_POST['dataTime'];
+    $keepFile = $_POST['keepFile'];
     $userId = $_POST['id'];
 
-    $saveResult = $todo->save($text, $dataTime, $userId);
+    $saveResult = $todo->save($text, $keepFile, $dataTime, $userId);
 
     if ($saveResult) {
         $todoFun->reloadTodoList();

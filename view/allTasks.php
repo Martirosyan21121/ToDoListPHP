@@ -55,30 +55,30 @@ ob_start(); ?>
                 $btnId = "modal-btn-$itemId";
                 ?>
                 <div class='cart-item'>
-                    <div class='item-title' style='max-width: 500px; position: absolute'><?php echo $text; ?></div>
                     <button id='<?php echo $btnId; ?>' class='modal-btn' value='<?php echo $itemId; ?>'
-                            style='margin-left: 650px'>&boxH;
+                            style='margin-left: 650px; position: absolute'>&boxH;
                     </button>
-                    <div class='item-description' style='margin-left: 550px; margin-top: 10px; color: #328a02'>From
+                    <div class='item-description' style=' margin-left: 550px; max-width: 150px; margin-top: 60px; color: #328a02; position: absolute'>From
                         - <?php echo $createdAt; ?></div>
-                    <div class='item-description' style='margin-left: 550px; margin-top: 10px; color: red'>Until
+                    <div class='item-description' style='margin-left: 550px; width: 150px; margin-top: 110px; color: red; position: absolute'>Until
                         - <?php echo $dataTime; ?></div>
-                    <div class='item-description'>
+                    <div>
+                        <div class='item-title' style='max-width: 500px; margin: 10px'><?php echo $text; ?></div>
                         <br>
                             <form action='../todo/add_task.php' method='post'>
                                 <input type='hidden' name='itemId' value='<?php echo $itemId; ?>'>
                                 <button type='submit' name='delete' style='margin: 20px' class='delete-task-button'>
                                     Delete
                                 </button>
-                                <button type='submit' name='update' style='margin-left: 40px; margin-top: 20px;'
+                                <button type='submit' name='update' style='margin-left: 40px; margin-top: 110px;'
                                         class='add-task-button'>Update
                                 </button>
-                                <button type='submit' name='keepFile' style='margin-left: 70px; margin-top: 20px;'
+                                <button type='submit' name='keepFile' style='margin-left: 70px;'
                                         class='download-file-button'>Keep file
                                 </button>
 
                                 <select id='statusSelect' class='custom-select' name='status'
-                                        style=' margin-right: 0; margin-left: 45px;  color: #007bff'>
+                                        style='margin-right: 0; margin-left: 45px;  color: #007bff'>
                                     <option value='0' <?php echo ($selected == '0') ? 'selected' : ''; ?>>Not Started
                                     </option>
                                     <option value='1' <?php echo ($selected == '1') ? 'selected' : ''; ?>>In Process</option>
@@ -105,7 +105,7 @@ ob_start(); ?>
                                 $status = 'Done';
                             }
                             ?>
-                            <p style='margin: 10px'>Number - <?php echo $itemId; ?></p>
+                            <p style='margin: 10px'>ID - <?php echo $itemId; ?></p>
                             <p style='margin: 10px; max-width: 90%; word-wrap: break-word; '>Subject - <?php echo $text; ?></p>
                             <p style='margin: 10px'>Status - <?php echo $status; ?></p>
                             <p style='color: #328a02; margin: 10px'>Last Updated - <?php echo $createdAt; ?></p>

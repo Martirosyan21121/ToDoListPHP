@@ -8,10 +8,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = $_POST['id'];
     $text = $_POST['text'];
     $dateTime = $_POST['dateTime'];
+    $keepFile = $_POST["keepFile"];
     $todo = new Todo();
     $todoFun = new TodoFunctions();
 
-    $updateResult = $todo->updateTextById($id, $text, $dateTime);
+    $updateResult = $todo->updateTextById($id, $text, $dateTime, $keepFile);
     if ($updateResult) {
         $todoFun->reloadTodoList();
     } else {

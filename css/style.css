@@ -1064,3 +1064,33 @@ input[type="datetime-local"]:focus {
     outline: none; /* Remove default focus outline */
     border-color: dodgerblue; /* Change border color on focus */
 }
+
+.file-input-container {
+    margin-top: 10px;
+    position: relative;
+    /*display: inline-block;*/
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#file-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+#file-name {
+    margin-left: 10px;
+    color: #333;
+}
+
+
+

@@ -61,8 +61,13 @@ if (isset($_GET['error']) && $_GET['error'] === 'password_pattern') {
                     <p style="color: red;"><?php echo $password_p; ?></p>
                 <?php } ?>
                 <br>
-                <input type="file" name="userImage">
-
+                <div class="file-input-container">
+                    <label for="file-input" class="custom-file-upload">
+                        Choose Picture
+                    </label>
+                    <input id="file-input" type="file" name="userImage" onchange="updateFileName(this)">
+                    <span id="file-name"></span>
+                </div>
                 <input type="submit" value="REGISTER">
             </form>
 
@@ -86,6 +91,16 @@ if (isset($_GET['error']) && $_GET['error'] === 'password_pattern') {
         <li></li>
     </ul>
 </div>
+<script>
+    function updateFileName(input) {
+        let fileName = '';
+        if (input.files.length > 0) {
+            fileName = input.files[0].name;
+        }
+        let fileNameSpan = document.getElementById('file-name');
+        fileNameSpan.textContent = fileName;
+    }
 
+</script>
 </body>
 </html>

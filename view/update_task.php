@@ -22,7 +22,6 @@ session_start()
 <div class="main-w3layouts wrapper">
     <h1>Update Task</h1>
 
-
     <div class="main-agileinfo">
         <div class="agileits-top">
 
@@ -39,7 +38,13 @@ session_start()
                     <input class="text" type="text" name="text" placeholder="Text" value="<?php echo $text ?>" required="">
                     <br>
                     <input type="datetime-local"  name="dateTime" value="<?php echo $date_time?>" placeholder="Data time" required="">
-
+                    <div class="file-input-container">
+                        <label for="file-input" class="custom-file-upload">
+                            Choose file
+                        </label>
+                        <input id="file-input" type="file" name="keepFile" onchange="fileNameUpdate(this)">
+                        <span id="file-name"><?php echo isset($_SESSION['task']) ? $_SESSION['task']['keep_file'] : ''; ?></span>
+                    </div>
                     <input class="text" type="hidden" name="id" value="<?php echo $id_update ?>">
                     <?php
                 }
@@ -75,6 +80,15 @@ session_start()
         <li></li>
     </ul>
 </div>
-
+<script>
+    function fileNameUpdate(input) {
+        let fileName = '';
+        if (input.files.length > 0) {
+            fileName = input.files[0].name;
+        }
+        let fileNameSpan = document.getElementById('file-name');
+        fileNameSpan.textContent = fileName;
+    }
+</script>
 </body>
 </html>

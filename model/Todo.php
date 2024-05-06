@@ -3,18 +3,18 @@ require_once '../database/DBConnection.php';
 
 class Todo extends DBConnection
 {
-    public function save($text, $dataTime , $id)
+    public function save($text, $keepFile, $dataTime ,$id)
     {
         date_default_timezone_set('Asia/Yerevan');
 
         $created_at = date('Y-m-d H:i:s');
 
-        $sql = "INSERT INTO todo.todo_list (text, date_time ,user_id, created_at) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO todo.todo_list (text, keep_file ,date_time ,user_id, created_at) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->connection->prepare($sql);
         if (!$stmt) {
             return false;
         }
-        $stmt->bind_param("ssis", $text, $dataTime, $id, $created_at);
+        $stmt->bind_param("sssis", $text, $keepFile, $dataTime, $id, $created_at);
         $success = $stmt->execute();
         $stmt->close();
         return $success;
@@ -81,17 +81,17 @@ class Todo extends DBConnection
         }
     }
 
-    public function updateTextById($todoId, $newText, $newDateTime)
+    public function updateTextById($todoId, $newText, $newDateTime, $keepFile)
     {
         date_default_timezone_set('Asia/Yerevan');
         $updated_at = date('Y-m-d H:i:s');
 
-        $sql = "UPDATE todo.todo_list SET text = ?, date_time = ?, created_at = ?, created_at = ? WHERE id = ?";
+        $sql = "UPDATE todo.todo_list SET text = ?, keep_file = ?,  date_time = ?, created_at = ?, created_at = ? WHERE id = ?";
         $stmt = $this->connection->prepare($sql);
         if (!$stmt) {
             return false;
         }
-        $stmt->bind_param("ssssi", $newText, $newDateTime, $updated_at, $updated_at, $todoId);
+        $stmt->bind_param("sssssi", $newText, $keepFile, $newDateTime, $updated_at, $updated_at, $todoId);
         $success = $stmt->execute();
         $stmt->close();
         return $success;
