@@ -776,6 +776,25 @@ input.checkbox:checked:after {
     background-color: #8DC26F;
 }
 
+
+.download-file-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #0016bf;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.download-file-button:hover {
+    background-color: rgba(0, 25, 158, 0.75);
+}
+
+
+
+
 .delete-task-button {
     padding: 10px 20px;
     font-size: 16px;
@@ -807,17 +826,17 @@ input.checkbox:checked:after {
 }
 .cart-item {
     margin-bottom: 10px;
+    min-height: 200px;
     padding: 5px;
+    height: auto;
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 10px;
     overflow: hidden;
 }
 .item-title {
+    word-wrap: break-word;
     font-weight: bold;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 .item-description {
     overflow: hidden;
@@ -1029,4 +1048,19 @@ input.checkbox:checked:after {
 .custom-select:disabled {
     opacity: 0.5; /* Reduce opacity for disabled state */
     pointer-events: none; /* Disable pointer events */
+}
+
+input[type="datetime-local"] {
+    /* Your styles here */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box; /* Ensure padding and border are included in the element's total width */
+}
+
+/* Example additional styles */
+input[type="datetime-local"]:focus {
+    outline: none; /* Remove default focus outline */
+    border-color: dodgerblue; /* Change border color on focus */
 }
