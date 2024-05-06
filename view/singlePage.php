@@ -47,9 +47,9 @@ ob_start();
         $userId = $_SESSION['user']['id'];
         if (isset($_SESSION['pic_path'])) {
             $profilePic = $_SESSION['pic_path'];
-            $defaultPic = "img/profilePick.png";
             if ($profilePic == null) {
-                echo "<img class='avatar' alt='Avatar' src='$defaultPic' style='margin-left: 80%; margin-top: -30px'>";
+                echo "<p> $profilePic </p>";
+                echo "<img class='avatar' alt='Avatar' src='../img/profilePick.png' style='margin-left: 80%; margin-top: -30px'>";
             } else {
                 echo "<img class='avatar' alt='Avatar' src='$profilePic' style='margin-left: 80%; margin-top: -30px'>";
             }

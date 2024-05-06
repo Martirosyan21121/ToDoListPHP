@@ -21,4 +21,19 @@ class UserPic extends DBConnection
         $_SESSION['pic_path'] = $picPath;
         header('Location: ../view/singlePage.php');
     }
+
+    public function findImageByUserId($userId)
+    {
+        $sql = "SELECT user_image FROM todo.user_picture WHERE user_id = ?";
+        $stmt = $this->connection->prepare($sql);
+        if (!$stmt) {
+            return false;
+        }
+        $stmt->bind_param("s", $userId);
+        $stmt->execute();
+        $stmt->bind_result($userImage);
+        $stmt->fetch();
+        $stmt->close();
+        return $userImage;
+    }
 }

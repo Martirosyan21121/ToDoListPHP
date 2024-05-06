@@ -38,6 +38,7 @@ if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
 
     } else {
         $uploaded_image_path = NULL;
+        $image_name = NULL;
     }
 
     session_start();
@@ -46,12 +47,10 @@ if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
         $userData = $user->getUserDataByEmail($email);
 
         $userId = $userData['id'];
-        if ($uploaded_image_path === null){
-            $userPic->userPicPath(null);
-        } else{
-            $userPic->savePic($image_name, $userId);
-            $userPic->userPicPath($uploaded_image_path);
-        }
+
+        $userPic->savePic($image_name, $userId);
+        $userPic->userPicPath($uploaded_image_path);
+
         $user->userData($userData);
         exit;
     } else {
