@@ -3,15 +3,15 @@ require_once '../database/DBConnection.php';
 
 class User extends DBConnection
 {
-    public function register($username, $email, $password, $userImage)
+    public function register($username, $email, $password)
     {
-        $sql = "INSERT INTO todo.user (username, email, password, user_image) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO todo.user (username, email, password) VALUES (?, ?, ?)";
         $stmt = $this->connection->prepare($sql);
         if (!$stmt) {
             return false;
         }
         $hashed_password = md5($password);
-        $stmt->bind_param("ssss", $username, $email, $hashed_password, $userImage);
+        $stmt->bind_param("sss", $username, $email, $hashed_password);
         $success = $stmt->execute();
         $stmt->close();
         return $success;
@@ -70,16 +70,4 @@ class User extends DBConnection
         return $updated;
     }
 
-    public function getProfilePictureById($userId) {
-        $sql = "SELECT user_image FROM todo.user WHERE id = ?";
-        $stmt = $this->connection->prepare($sql);
-        $stmt->bind_param("i", $userId);
-        $stmt->execute();
-        $stmt->store_result();
-        $stmt->bind_result($userImage);
-        $stmt->fetch();
-        $stmt->close();
-
-        return $userImage;
-    }
 }

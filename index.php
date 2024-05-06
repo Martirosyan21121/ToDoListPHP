@@ -35,9 +35,8 @@ if (isset($_GET['error']) && $_GET['error'] === 'wrong_login') {
 </head>
 <body>
 <div class="main-w3layouts wrapper">
-    <h1>Please Login</h1>
+    <h1>Please Log in</h1>
     <div class="main-agileinfo">
-
         <div class="agileits-top">
 
             <form action="loginData/login.php" method="post">

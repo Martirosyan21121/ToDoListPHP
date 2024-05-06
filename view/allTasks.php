@@ -34,7 +34,6 @@ ob_start(); ?>
                 $itemId = $row['id'];
                 $createdAt = $row['created_at'];
 
-                // Set selected option based on status
                 switch ($row['status']) {
                     case 0:
                         $selected = '0';
@@ -73,9 +72,9 @@ ob_start(); ?>
                                 <button type='submit' name='update' style='margin-left: 40px; margin-top: 110px;'
                                         class='add-task-button'>Update
                                 </button>
-                                <button type='submit' name='keepFile' style='margin-left: 70px;'
+                                <a href="../view/register.php" download style='margin-left: 70px;'
                                         class='download-file-button'>Keep file
-                                </button>
+                                </a>
 
                                 <select id='statusSelect' class='custom-select' name='status'
                                         style='margin-right: 0; margin-left: 45px;  color: #007bff'>

@@ -47,7 +47,7 @@ if (isset($_GET['error']) && $_GET['error'] === 'password_pattern') {
     <div class="main-agileinfo">
         <div class="agileits-top">
 
-            <form action="../registerData/register_logic.php" method="post">
+            <form action="../registerData/register_logic.php" method="post" enctype="multipart/form-data">
                 <input class="text" type="text" name="username" placeholder="Username" required="">
                 <?php if (!empty($username_length)) { ?>
                     <p style="color: red;"><?php echo $username_length; ?></p>
@@ -65,7 +65,7 @@ if (isset($_GET['error']) && $_GET['error'] === 'password_pattern') {
                     <label for="file-input" class="custom-file-upload">
                         Choose Picture
                     </label>
-                    <input id="file-input" type="file" name="userImage" onchange="updateFileName(this)">
+                    <input id="file-input" type="file" name="user_image" onchange="updateFileName(this)">
                     <span id="file-name"></span>
                 </div>
                 <input type="submit" value="REGISTER">

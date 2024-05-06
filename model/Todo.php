@@ -35,23 +35,6 @@ class Todo extends DBConnection
             return array();
         }
     }
-//
-//    public function getAllTasksCountByUserId($userId)
-//    {
-//        $sql = "SELECT * FROM todo.todo_list WHERE user_id = '$userId'";
-//        $result = $this->connection->query($sql);
-//
-//        if ($result->num_rows > 0) {
-//            $count = 0;
-//            while ($result->fetch_assoc()) {
-//                $count += $count;
-//            }
-//            return count();
-//        } else {
-//            return array();
-//        }
-//    }
-
 
 
     public function deleteById($todoId)

@@ -44,22 +44,21 @@ ob_start();
         $user = new User();
         $username = $_SESSION['user']['username'];
         $email = $_SESSION['user']['email'];
-        $profilePic = $_SESSION['user']['user_image'];
         $userId = $_SESSION['user']['id'];
-
-        $userImage = $user->getProfilePictureById($userId);
-
-        if ($userImage === null) {
-            echo "<img class='avatar' alt='Avatar' src='../img/profilePick.png' style='margin-left: 80%; margin-top: -30px'>";
-        } else {
-
-            echo '<img class="avatar" alt="Avatar" src="data:image/jpeg;base64,' . base64_encode($userImage) . '" style="margin-left: 80%; margin-top: -30px">';
-
+        if (isset($_SESSION['pic_path'])) {
+            $profilePic = $_SESSION['pic_path'];
+            $defaultPic = "img/profilePick.png";
+            if ($profilePic == null) {
+                echo "<img class='avatar' alt='Avatar' src='$defaultPic' style='margin-left: 80%; margin-top: -30px'>";
+            } else {
+                echo "<img class='avatar' alt='Avatar' src='$profilePic' style='margin-left: 80%; margin-top: -30px'>";
+            }
         }
 
         echo "<h3 style='margin-left: 75%; margin-top: 10px'> Username:____$username</h3>";
         echo "<br>";
         echo "<h3 style='margin-left: 75%; margin-top: -10px'> Email:____ $email</h3>";
+
     } else {
         echo "<p>No username or email found.</p>";
     }

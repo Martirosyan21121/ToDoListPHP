@@ -34,7 +34,7 @@ if (isset($_GET['error']) && $_GET['error'] === 'min_length') {
     <div class="main-agileinfo">
         <div class="agileits-top">
 
-            <form action="../user/user_update_logic.php" method="post">
+            <form action="../user/user_update_logic.php" method="post" enctype="multipart/form-data">
                 <?php
                 if (isset($_SESSION['user_data'])) {
                     $user_data = $_SESSION['user_data'];
@@ -56,6 +56,14 @@ if (isset($_GET['error']) && $_GET['error'] === 'min_length') {
                     <?php if (!empty($email_exist)) { ?>
                         <p style="color: red;"><?php echo $email_exist; ?></p>
                     <?php } ?>
+
+                    <div class="file-input-container">
+                        <label for="file-input" class="custom-file-upload">
+                            Choose Picture
+                        </label>
+                        <input id="file-input" type="file" name="user_update_image" onchange="updateUserPic(this)">
+                        <span id="file-name"></span>
+                    </div>
 
                     <input class="text" type="hidden" name="id" value="<?php echo $user_id ?>">
                     <?php
@@ -84,6 +92,15 @@ if (isset($_GET['error']) && $_GET['error'] === 'min_length') {
         <li></li>
     </ul>
 </div>
-
+<script>
+    function updateUserPic(input) {
+        let fileName = '';
+        if (input.files.length > 0) {
+            fileName = input.files[0].name;
+        }
+        let fileNameSpan = document.getElementById('file-name');
+        fileNameSpan.textContent = fileName;
+    }
+</script>
 </body>
 </html>
