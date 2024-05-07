@@ -8,6 +8,7 @@ ob_start();
 <html lang="">
 <head>
     <title>Single page</title>
+    <link rel="icon" href="/img/logo/logo.jpg" type="image/gif" sizes="any">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>

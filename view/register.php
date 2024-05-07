@@ -29,6 +29,7 @@ if (isset($_GET['error']) && $_GET['error'] === 'password_pattern') {
 <html lang="">
 <head>
     <title>Register page</title>
+    <link rel="icon" href="/img/logo/logo.jpg" type="image/gif" sizes="any">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <script type="application/x-javascript"> addEventListener("load", function () {
