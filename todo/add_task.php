@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $taskId = $task['id'];
             $image_tmp_name = $_FILES['keep_file']['tmp_name'];
             $image_name = $taskId . $_FILES['keep_file']['name'];
-            $upload_directory = '../img/taskFile/';
+            $upload_directory = '/img/taskFiles/';
 
 
             if (!file_exists($upload_directory)) {
@@ -59,20 +59,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $uploaded_image_path = $upload_directory . $image_name;
 
             if (!move_uploaded_file($image_tmp_name, $uploaded_image_path)) {
-                header("Location: ../view/updateUser.php?error=file_upload_failed");
+                header("Location: ../view/add_task.php?error=file_upload_failed");
                 exit;
             }
 
-            $taskFile->saveFile($image_name);
-            $file = $taskFile->findTaskFileByName($image_name);
-            $fileId = $file['id'];
-        } else {
-            $fileId = null;
-            $uploaded_image_path = null;
-            $image_name = null;
+//            $taskFile->saveFile($image_name);
+//            $file = $taskFile->findTaskFileByName($image_name);
+//            $fileId = $file['id'];
         }
-
         $todoFun->reloadTodoList();
+
     } else {
         $todoFun->handleError('save_failed');
     }
