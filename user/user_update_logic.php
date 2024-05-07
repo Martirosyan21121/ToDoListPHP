@@ -83,7 +83,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
         if ($fileToUpdateId !== null) {
-
+            $userPic->deleteFileById($fileToUpdateId);
+            $filePathToDelete = '../img/userPic/' . $fileToUpdateName;
+            if (file_exists($filePathToDelete)) {
+                unlink($filePathToDelete);
+            }
         }
     }
 
