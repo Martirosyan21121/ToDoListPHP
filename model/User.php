@@ -58,16 +58,15 @@ class User extends DBConnection
         }
     }
 
-    public function updateUserById($username, $email, $userId) {
-        $sql = "UPDATE todo.user SET username = ?, email = ? WHERE id = ?";
+    public function updateUserById($username, $email, $fileId, $userId) {
+        $sql = "UPDATE todo.user SET username = ?, email = ?, files_id = ? WHERE id = ?";
         $stmt = $this->connection->prepare($sql);
         if (!$stmt) {
             return false;
         }
-        $stmt->bind_param("ssi", $username, $email, $userId);
+        $stmt->bind_param("sssi", $username, $email, $fileId, $userId);
         $updated = $stmt->execute();
         $stmt->close();
         return $updated;
     }
-
 }

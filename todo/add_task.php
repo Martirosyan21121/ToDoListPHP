@@ -1,11 +1,13 @@
 <?php
 require_once '../model/Todo.php';
 require_once '../todo/TodoFunctions.php';
+require_once '../model/TaskFile.php';
 
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $todo = new Todo();
+    $taskFile = new TaskFile();
     $todoFun = new TodoFunctions();
 
     if (isset($_POST['delete'])) {
@@ -39,12 +41,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $text = $_POST['text'];
     $dataTime = $_POST['dataTime'];
-    $keepFile = $_POST['keepFile'];
     $userId = $_POST['id'];
-
-    $saveResult = $todo->save($text, $keepFile, $dataTime, $userId);
-
+    $saveResult = $todo->save($text, $dataTime, $userId);
     if ($saveResult) {
+        if (isset($_FILES['keep_file']) && $_FILES['keep_file']['error'] === UPLOAD_ERR_OK) {
+            $task = $todo->findTaskById($userId);
+            $taskId = $task['id'];
+            $image_tmp_name = $_FILES['keep_file']['tmp_name'];
+            $image_name = $taskId . $_FILES['keep_file']['name'];
+            $upload_directory = '../img/taskFile/';
+
+
+            if (!file_exists($upload_directory)) {
+                mkdir($upload_directory, 0777, true);
+            }
+
+            $uploaded_image_path = $upload_directory . $image_name;
+
+            if (!move_uploaded_file($image_tmp_name, $uploaded_image_path)) {
+                header("Location: ../view/updateUser.php?error=file_upload_failed");
+                exit;
+            }
+
+            $taskFile->saveFile($image_name);
+            $file = $taskFile->findTaskFileByName($image_name);
+            $fileId = $file['id'];
+        } else {
+            $fileId = null;
+            $uploaded_image_path = null;
+            $image_name = null;
+        }
+
         $todoFun->reloadTodoList();
     } else {
         $todoFun->handleError('save_failed');

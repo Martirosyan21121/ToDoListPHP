@@ -3,14 +3,14 @@ require_once '../database/DBConnection.php';
 
 class UserPic extends DBConnection
 {
-    public function savePic($imageName, $userId)
+    public function savePic($imageName)
     {
-        $sql = "INSERT INTO todo.user_picture (user_image, user_id) VALUES (?, ?)";
+        $sql = "INSERT INTO todo.files (files_name) VALUES (?)";
         $stmt = $this->connection->prepare($sql);
         if (!$stmt) {
             return false;
         }
-        $stmt->bind_param("ss", $imageName, $userId);
+        $stmt->bind_param("s", $imageName);
         $success = $stmt->execute();
         $stmt->close();
         return $success;
@@ -22,18 +22,46 @@ class UserPic extends DBConnection
         header('Location: ../view/singlePage.php');
     }
 
-    public function findImageByUserId($userId)
+    public function findFileByName($fileName)
     {
-        $sql = "SELECT user_image FROM todo.user_picture WHERE user_id = ?";
+        $sql = "SELECT * FROM todo.files WHERE files_name = ?";
         $stmt = $this->connection->prepare($sql);
         if (!$stmt) {
             return false;
         }
-        $stmt->bind_param("s", $userId);
+        $stmt->bind_param("s", $fileName);
         $stmt->execute();
-        $stmt->bind_result($userImage);
-        $stmt->fetch();
+        $result = $stmt->get_result();
+        $file = $result->fetch_assoc();
         $stmt->close();
-        return $userImage;
+        return $file;
+    }
+
+    public function findFileById($fileId)
+    {
+        $sql = "SELECT * FROM todo.files WHERE id = ?";
+        $stmt = $this->connection->prepare($sql);
+        if (!$stmt) {
+            return false;
+        }
+        $stmt->bind_param("i", $fileId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $file = $result->fetch_assoc();
+        $stmt->close();
+        return $file;
+    }
+
+    public function deleteFileById($fileId)
+    {
+        $sql = "DELETE FROM todo.files WHERE id = ?";
+        $stmt = $this->connection->prepare($sql);
+        if (!$stmt) {
+            return false;
+        }
+        $stmt->bind_param("i", $fileId);
+        $stmt->execute();
+        $stmt->close();
+        return true;
     }
 }

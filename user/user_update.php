@@ -10,8 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $email = $_POST['email'];
 
         $userData = $user->getUserDataByEmail($email);
-        $userFun->updateUser($userData);
 
+        $userFun->updateUser($userData);
         exit();
     }
 }

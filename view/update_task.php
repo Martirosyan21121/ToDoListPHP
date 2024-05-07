@@ -3,7 +3,7 @@ session_start()
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="">
 <head>
     <title>Update Task</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -43,7 +43,7 @@ session_start()
                             Choose file
                         </label>
                         <input id="file-input" type="file" name="keepFile" onchange="fileNameUpdate(this)">
-                        <span id="file-name"><?php echo isset($_SESSION['task']) ? $_SESSION['task']['keep_file'] : ''; ?></span>
+                        <span id="file-name"></span>
                     </div>
                     <input class="text" type="hidden" name="id" value="<?php echo $id_update ?>">
                     <?php

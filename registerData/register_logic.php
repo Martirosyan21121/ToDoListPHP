@@ -28,29 +28,11 @@ if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
         exit;
     }
 
-    if (isset($_FILES['user_image']) && $_FILES['user_image']['error'] === UPLOAD_ERR_OK) {
-        $image_name = $_FILES['user_image']['name'];
-        $image_tmp_name = $_FILES['user_image']['tmp_name'];
-
-        $upload_directory = '../img/userPic/';
-        $uploaded_image_path = $upload_directory . $image_name;
-        move_uploaded_file($image_tmp_name, $uploaded_image_path);
-
-    } else {
-        $uploaded_image_path = NULL;
-        $image_name = NULL;
-    }
 
     session_start();
     $registered = $user->register($username, $email, $password);
     if ($registered) {
         $userData = $user->getUserDataByEmail($email);
-
-        $userId = $userData['id'];
-
-        $userPic->savePic($image_name, $userId);
-        $userPic->userPicPath($uploaded_image_path);
-
         $user->userData($userData);
         exit;
     } else {

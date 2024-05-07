@@ -12,14 +12,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: ../index.php?error=invalid_email");
         exit;
     }
-    session_start ();
+    session_start();
     $login = $user->login($email, $password);
     if ($login) {
         $userData = $user->getUserDataByEmail($email);
-        $userId = $userData['id'];
-        $userPic->findImageByUserId($userId);
 
-        $userPic->userPicPath($uploaded_image_path);
+        if (!empty($userData['files_id'])) {
+            $userFileId = $userData['files_id'];
+            $file = $userPic->findFileById($userFileId);
+            $image_name = $file['files_name'];
+
+            $upload_directory = '../img/userPic/';
+            $uploaded_image_path = $upload_directory . $image_name;
+            $userPic->userPicPath($uploaded_image_path);
+        }
+
         $user->userData($userData);
 
     } else {

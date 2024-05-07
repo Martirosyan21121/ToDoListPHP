@@ -10,6 +10,10 @@ $username_length = '';
 if (isset($_GET['error']) && $_GET['error'] === 'min_length') {
     $username_length = "Username minimum length must be at least 5 characters.";
 }
+$invalid_extension = '';
+if (isset($_GET['error']) && $_GET['error'] === 'invalid_file_extension') {
+    $invalid_extension = "Invalid file extension. Please upload a JPG or JPEG or PNG file.";
+}
 ?>
 
 <!DOCTYPE html>
@@ -61,9 +65,13 @@ if (isset($_GET['error']) && $_GET['error'] === 'min_length') {
                         <label for="file-input" class="custom-file-upload">
                             Choose Picture
                         </label>
-                        <input id="file-input" type="file" name="user_update_image" onchange="updateUserPic(this)">
+                        <input id="file-input" type="file" name="user_image" onchange="updateUserPic(this)">
                         <span id="file-name"></span>
                     </div>
+                    <?php if (!empty($invalid_extension)) { ?>
+                        <p style="color: red;"><?php echo $invalid_extension; ?></p>
+                    <?php } ?>
+
 
                     <input class="text" type="hidden" name="id" value="<?php echo $user_id ?>">
                     <?php

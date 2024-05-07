@@ -39,7 +39,7 @@
                     <label for="file-input" class="custom-file-upload">
                         Choose file
                     </label>
-                    <input id="file-input" type="file" name="keepFile" onchange="fileName(this)">
+                    <input id="file-input" type="file" name="keep_file" onchange="fileName(this)">
                     <span id="file-name"></span>
                 </div>
                 <input type="submit" value="ADD TASK">
@@ -80,7 +80,6 @@
         let fileNameSpan = document.getElementById('file-name');
         fileNameSpan.textContent = fileName;
     }
-
 </script>
 </body>
 </html>
