@@ -75,6 +75,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
+    if (!empty($fileId)) {
+        $userData = $user->getUserDataByEmail($email);
+        $fileToUpdateId = $userData['files_id'];
+        $fileToUpdate = $userPic->findFileById($fileToUpdateId);
+        $fileToUpdateName = $fileToUpdate['files_name'];
+
+
+        if ($fileToUpdateId !== null) {
+
+        }
+    }
+
+
     $updated = $user->updateUserById($username, $email, $fileId, $userId);
 
     if ($updated) {

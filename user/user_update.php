@@ -8,9 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (isset($_POST['update_user'])) {
         $email = $_POST['email'];
-
         $userData = $user->getUserDataByEmail($email);
-
         $userFun->updateUser($userData);
         exit();
     }

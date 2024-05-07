@@ -46,6 +46,7 @@ if (isset($_GET['error']) && $_GET['error'] === 'invalid_file_extension') {
                     $user_id = $user_data['id'];
                     $username = $user_data['username'];
                     $email = $user_data['email'];
+                    $imageName = $user_data['files_id'];
                     ?>
                     <input class="text" type="text" name="username" placeholder="Username"
                            value="<?php echo $username ?>" required="">
@@ -65,9 +66,10 @@ if (isset($_GET['error']) && $_GET['error'] === 'invalid_file_extension') {
                         <label for="file-input" class="custom-file-upload">
                             Choose Picture
                         </label>
-                        <input id="file-input" type="file" name="user_image" onchange="updateUserPic(this)">
+                        <input id="file-input" type="file"  name="user_image" onchange="updateUserPic(this)">
                         <span id="file-name"></span>
                     </div>
+
                     <?php if (!empty($invalid_extension)) { ?>
                         <p style="color: red;"><?php echo $invalid_extension; ?></p>
                     <?php } ?>
