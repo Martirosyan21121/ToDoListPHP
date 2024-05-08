@@ -39,6 +39,8 @@ session_start()
                     <input class="text" type="text" name="text" placeholder="Text" value="<?php echo $text ?>" required="">
                     <br>
                     <input type="datetime-local"  name="dateTime" value="<?php echo $date_time?>" placeholder="Data time" required="">
+                    <span style="color: red; margin-left: 10px">Deadline</span>
+
                     <div class="file-input-container">
                         <label for="file-input" class="custom-file-upload">
                             Choose file

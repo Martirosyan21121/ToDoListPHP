@@ -55,42 +55,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $image_name = null;
     }
 
-    if ($fileId === null) {
-        $userData = $user->getUserDataByEmail($email);
-        $fileToDeleteId = $userData['files_id'];
+    $userData = $user->getUserDataByEmail($email);
+    $fileToUpdateId = $userData['files_id'];
 
-        if ($fileToDeleteId !== null) {
-            $fileForDelete = $userPic->findFileById($fileToDeleteId);
-            $fileName = $fileForDelete['files_name'];
-            $fileToDelete = $userPic->findFileById($fileToDeleteId);
-            if ($fileToDelete !== null) {
-                $filePathToDelete = '../img/userPic/' . $fileName;
-                if (file_exists($filePathToDelete)) {
-                    unlink($filePathToDelete);
+    $fileToUpdate = $userPic->findFileById($fileToUpdateId);
+    $fileToUpdateName = $fileToUpdate['files_name'];
+
+    if ($fileId === null) {
+        $fileToUpdateId = $userData['files_id'];
+        if ($fileToUpdateId !== null && $fileToUpdateId !== $fileId) {
+            if ($fileToUpdate !== null) {
+                $filePathToUpdate = '../img/userPic/' . $fileToUpdateName;
+                if (file_exists($filePathToUpdate)) {
+                    unlink($filePathToUpdate);
                 }
             }
         }
-        if ($fileToDeleteId !== null) {
-            $userPic->deleteFileById($fileToDeleteId);
+        if ($fileToUpdateId !== null) {
+            $userPic->deleteFileById($fileToUpdateId);
         }
     }
 
     if (!empty($fileId)) {
-        $userData = $user->getUserDataByEmail($email);
-        $fileToUpdateId = $userData['files_id'];
-        $fileToUpdate = $userPic->findFileById($fileToUpdateId);
-        $fileToUpdateName = $fileToUpdate['files_name'];
-
-
         if ($fileToUpdateId !== null) {
             $userPic->deleteFileById($fileToUpdateId);
-            $filePathToDelete = '../img/userPic/' . $fileToUpdateName;
-            if (file_exists($filePathToDelete)) {
-                unlink($filePathToDelete);
+            $filePathToUpdate = '../img/userPic/' . $fileToUpdateName;
+            if (file_exists($filePathToUpdate)) {
+                unlink($filePathToUpdate);
             }
         }
     }
-
 
     $updated = $user->updateUserById($username, $email, $fileId, $userId);
 
