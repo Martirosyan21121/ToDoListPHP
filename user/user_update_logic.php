@@ -24,7 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (isset($_FILES['user_image']) && $_FILES['user_image']['error'] === UPLOAD_ERR_OK) {
         $image_tmp_name = $_FILES['user_image']['tmp_name'];
-        $image_name = $userId . $_FILES['user_image']['name'];
+        $randomNumber = rand(1000, 1000000);
+        $image_name = $userId . $randomNumber. $_FILES['user_image']['name'];
         $upload_directory = '../img/userPic/';
 
         $allowed_extensions = ['jpg', 'jpeg', 'png'];
@@ -33,8 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header("Location: ../view/updateUser.php?error=invalid_file_extension");
             exit;
         }
-
-
         if (!file_exists($upload_directory)) {
             mkdir($upload_directory, 0777, true);
         }

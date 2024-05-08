@@ -22,10 +22,10 @@
     <div class="main-agileinfo">
         <div class="agileits-top">
 
-            <form action="../todo/add_task.php" method="post">
+            <form action="../todo/add_task.php" method="post" enctype="multipart/form-data">
                 <input class="text" type="text" name="text" placeholder="Text" required="">
                 <br>
-                <input type="datetime-local" name="dataTime" placeholder="Data time" step="60">
+                <input type="datetime-local" name="dataTime" placeholder="Data time" step="60" required="">
                 <span style="color: red; margin-left: 10px">Deadline</span>
                 <?php
                 session_start();
@@ -41,9 +41,10 @@
                     <label for="file-input" class="custom-file-upload">
                         Choose file
                     </label>
-                    <input id="file-input" type="file" name="keep_file" onchange="fileName(this)">
+                    <input id="file-input" type="file" name="task_file" onchange="fileName(this)">
                     <span id="file-name"></span>
                 </div>
+
                 <input type="submit" value="ADD TASK">
             </form>
         </div>

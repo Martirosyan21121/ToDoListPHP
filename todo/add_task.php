@@ -44,29 +44,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $userId = $_POST['id'];
     $saveResult = $todo->save($text, $dataTime, $userId);
     if ($saveResult) {
-        if (isset($_FILES['keep_file']) && $_FILES['keep_file']['error'] === UPLOAD_ERR_OK) {
-            $task = $todo->findTaskById($userId);
-            $taskId = $task['id'];
-            $image_tmp_name = $_FILES['keep_file']['tmp_name'];
-            $image_name = $taskId . $_FILES['keep_file']['name'];
-            $upload_directory = '/img/taskFiles/';
-
+        if (isset($_FILES['task_file']) && $_FILES['task_file']['error'] === UPLOAD_ERR_OK) {
+            $taskId = $saveResult;
+            $task = $todo->findTaskById($taskId);
+            $taskUserId = $task['user_id'];
+            $randomNumber = rand(10000, 1000000);
+            $file_tmp_name = $_FILES['task_file']['tmp_name'];
+            $file_name = $taskId . $randomNumber . $taskUserId . $_FILES['task_file']['name'];
+            $upload_directory = '../img/taskFiles/';
 
             if (!file_exists($upload_directory)) {
                 mkdir($upload_directory, 0777, true);
             }
 
-            $uploaded_image_path = $upload_directory . $image_name;
+            $uploaded_image_path = $upload_directory . $file_name;
 
-            if (!move_uploaded_file($image_tmp_name, $uploaded_image_path)) {
+            if (!move_uploaded_file($file_tmp_name, $uploaded_image_path)) {
                 header("Location: ../view/add_task.php?error=file_upload_failed");
                 exit;
             }
 
-//            $taskFile->saveFile($image_name);
-//            $file = $taskFile->findTaskFileByName($image_name);
-//            $fileId = $file['id'];
+            $taskFile->saveFile($file_name);
+            $file = $taskFile->findTaskFileByName($file_name);
+            $fileId = $file['id'];
+            $todo->updateText($text, $dataTime, $userId, $fileId);
         }
+
         $todoFun->reloadTodoList();
 
     } else {

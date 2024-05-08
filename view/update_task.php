@@ -26,7 +26,7 @@ session_start()
     <div class="main-agileinfo">
         <div class="agileits-top">
 
-            <form action="../todo/update.php" method="post">
+            <form action="../todo/update.php" method="post" enctype="multipart/form-data">
 
                 <?php
                 if (isset($_SESSION['task'])) {
@@ -45,7 +45,7 @@ session_start()
                         <label for="file-input" class="custom-file-upload">
                             Choose file
                         </label>
-                        <input id="file-input" type="file" name="keepFile" onchange="fileNameUpdate(this)">
+                        <input id="file-input" type="file" name="file_name" onchange="fileNameUpdate(this)">
                         <span id="file-name"></span>
                     </div>
                     <input class="text" type="hidden" name="id" value="<?php echo $id_update ?>">

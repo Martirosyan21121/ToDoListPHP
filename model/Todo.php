@@ -16,8 +16,9 @@ class Todo extends DBConnection
         }
         $stmt->bind_param("ssis", $text, $dataTime, $id, $created_at);
         $success = $stmt->execute();
+        $taskId = $stmt->insert_id;
         $stmt->close();
-        return $success;
+        return ($success ? $taskId : false);
     }
 
     public function getAllByUserId($userId)
@@ -64,17 +65,17 @@ class Todo extends DBConnection
         }
     }
 
-    public function updateTextById($todoId, $newText, $newDateTime)
+    public function updateText($todoId, $newText, $newDateTime, $fileId)
     {
         date_default_timezone_set('Asia/Yerevan');
         $updated_at = date('Y-m-d H:i:s');
 
-        $sql = "UPDATE todo.todo_list SET text = ?,  date_time = ?, created_at = ? WHERE id = ?";
+        $sql = "UPDATE todo.todo_list SET text = ?,  date_time = ?, created_at = ?, task_files_id = ? WHERE id = ?";
         $stmt = $this->connection->prepare($sql);
         if (!$stmt) {
             return false;
         }
-        $stmt->bind_param("sssi", $newText, $newDateTime, $updated_at, $todoId);
+        $stmt->bind_param("sssis", $newText, $newDateTime, $updated_at, $todoId, $fileId);
         $success = $stmt->execute();
         $stmt->close();
         return $success;
