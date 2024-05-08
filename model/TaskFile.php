@@ -16,7 +16,7 @@ class TaskFile extends DBConnection
         return $success;
     }
 
-    public function findTaskFileByName($taskFileName)
+    public function findFileByName($taskFileName)
     {
         $sql = "SELECT * FROM todo.files WHERE files_name = ?";
         $stmt = $this->connection->prepare($sql);
@@ -30,4 +30,33 @@ class TaskFile extends DBConnection
         $stmt->close();
         return $file;
     }
+
+    public function deleteFileById($fileId)
+    {
+        $sql = "DELETE FROM todo.files WHERE id = ?";
+        $stmt = $this->connection->prepare($sql);
+        if (!$stmt) {
+            return false;
+        }
+        $stmt->bind_param("i", $fileId);
+        $success = $stmt->execute();
+        $stmt->close();
+        return $success;
+    }
+
+    public function findFileById($taskFileId)
+    {
+        $sql = "SELECT * FROM todo.files WHERE id = ?";
+        $stmt = $this->connection->prepare($sql);
+        if (!$stmt) {
+            return false;
+        }
+        $stmt->bind_param("i", $taskFileId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $file = $result->fetch_assoc();
+        $stmt->close();
+        return $file;
+    }
+
 }

@@ -6,15 +6,28 @@ require_once '../model/TaskFile.php';
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
     $todo = new Todo();
     $taskFile = new TaskFile();
     $todoFun = new TodoFunctions();
 
     if (isset($_POST['delete'])) {
+        $deleteFileId = $_POST['fileId'];
+        $deleted_directory = '../img/taskFiles/';
+        $file = $taskFile->findFileById($deleteFileId);
+        $deleteFileName = $file['files_name'];
+
+        if ($file !== null) {
+            $filePathToUpdate = $deleted_directory . $deleteFileName;
+            if (file_exists($filePathToUpdate)) {
+                unlink($filePathToUpdate);
+            }
+        }
+
+        $deleteFile = $taskFile->deleteFileById($deleteFileId);
 
         $deleteId = $_POST['itemId'];
         $deleteResult = $todo->deleteById($deleteId);
-
         if ($deleteResult) {
             $todoFun->reloadTodoList();
         } else {
@@ -40,9 +53,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     $text = $_POST['text'];
-    $dataTime = $_POST['dataTime'];
+    $dateTime = $_POST['dateTime'];
     $userId = $_POST['id'];
-    $saveResult = $todo->save($text, $dataTime, $userId);
+    $saveResult = $todo->save($text, $dateTime, $userId);
     if ($saveResult) {
         if (isset($_FILES['task_file']) && $_FILES['task_file']['error'] === UPLOAD_ERR_OK) {
             $taskId = $saveResult;
@@ -65,9 +78,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
 
             $taskFile->saveFile($file_name);
-            $file = $taskFile->findTaskFileByName($file_name);
+            $file = $taskFile->findFileByName($file_name);
             $fileId = $file['id'];
-            $todo->updateText($text, $dataTime, $userId, $fileId);
+            $todo->updateText($taskId, $text, $dateTime, $fileId);
         }
 
         $todoFun->reloadTodoList();
@@ -76,7 +89,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $todoFun->handleError('save_failed');
     }
 }
-
-
-
-

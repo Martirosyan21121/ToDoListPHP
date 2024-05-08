@@ -75,7 +75,7 @@ class Todo extends DBConnection
         if (!$stmt) {
             return false;
         }
-        $stmt->bind_param("sssis", $newText, $newDateTime, $updated_at, $todoId, $fileId);
+        $stmt->bind_param("sssii", $newText, $newDateTime, $updated_at, $fileId, $todoId);
         $success = $stmt->execute();
         $stmt->close();
         return $success;

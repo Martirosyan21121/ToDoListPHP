@@ -1,5 +1,7 @@
 <?php
-session_start()
+session_start();
+require_once '../model/TaskFile.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +32,7 @@ session_start()
 
                 <?php
                 if (isset($_SESSION['task'])) {
-
+                    $taskFile = new TaskFile();
                     $id_update = $_SESSION['task']['id'];
                     $text = $_SESSION['task']['text'];
                     $date_time = $_SESSION['task']['date_time'];
@@ -45,7 +47,7 @@ session_start()
                         <label for="file-input" class="custom-file-upload">
                             Choose file
                         </label>
-                        <input id="file-input" type="file" name="file_name" onchange="fileNameUpdate(this)">
+                        <input id="file-input" type="file" name="task_file" onchange="fileNameUpdate(this)">
                         <span id="file-name"></span>
                     </div>
                     <input class="text" type="hidden" name="id" value="<?php echo $id_update ?>">
@@ -55,7 +57,6 @@ session_start()
 
                 <input type="submit" name="update" value="UPDATE TASK">
             </form>
-
         </div>
     </div>
 

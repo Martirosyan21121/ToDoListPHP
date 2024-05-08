@@ -1,6 +1,9 @@
 <?php
 session_start();
-ob_start(); ?>
+ob_start();
+
+require_once '../model/TaskFile.php';
+?>
 <!DOCTYPE html>
 <html lang="">
 <head>
@@ -29,11 +32,16 @@ ob_start(); ?>
     <div class="cart">
         <?php
         if (!empty($_SESSION['allTasks'])) {
+            $taskFile = new TaskFile();
             foreach ($_SESSION['allTasks'] as $row) {
                 $text = $row['text'];
                 $dataTime = $row['date_time'];
                 $itemId = $row['id'];
                 $createdAt = $row['created_at'];
+                $file_id = $row['task_files_id'];
+
+
+                $file = $taskFile->findFileById($file_id);
 
                 switch ($row['status']) {
                     case 0:
@@ -58,36 +66,55 @@ ob_start(); ?>
                     <button id='<?php echo $btnId; ?>' class='modal-btn' value='<?php echo $itemId; ?>'
                             style='margin-left: 650px; position: absolute'>&boxH;
                     </button>
-                    <div class='item-description' style=' margin-left: 550px; max-width: 150px; margin-top: 60px; color: #328a02; position: absolute'>From
+                    <div class='item-description'
+                         style=' margin-left: 550px; max-width: 150px; margin-top: 60px; color: #328a02; position: absolute'>
+                        From
                         - <?php echo $createdAt; ?></div>
-                    <div class='item-description' style='margin-left: 550px; width: 150px; margin-top: 110px; color: red; position: absolute'>Until
+                    <div class='item-description'
+                         style='margin-left: 550px; width: 150px; margin-top: 110px; color: red; position: absolute'>
+                        Until
                         - <?php echo $dataTime; ?></div>
                     <div>
                         <div class='item-title' style='max-width: 500px; margin: 10px'><?php echo $text; ?></div>
                         <br>
-                            <form action='../todo/add_task.php' method='post'>
-                                <input type='hidden' name='itemId' value='<?php echo $itemId; ?>'>
-                                <button type='submit' name='delete' style='margin: 20px' class='delete-task-button'>
-                                    Delete
-                                </button>
-                                <button type='submit' name='update' style='margin-left: 40px; margin-top: 110px;'
-                                        class='add-task-button'>Update
-                                </button>
-                                <a href="../view/register.php" download style='margin-left: 70px;'
-                                        class='download-file-button'>Keep file
-                                </a>
+                        <form action='../todo/add_task.php' method='post'>
+                            <input type='hidden' name='itemId' value='<?php echo $itemId; ?>'>
+                            <input type='hidden' name='fileId' value='<?php echo $file_id; ?>'>
+                            <button type='submit' name='delete' style='margin: 20px' class='delete-task-button'>
+                                Delete
+                            </button>
+                            <button type='submit' name='update' style='margin-left: 40px; margin-top: 110px;'
+                                    class='add-task-button'>Update
+                            </button>
+                            <?php
+                            if ($file !== null) {
+                                $fileName = $file['files_name'];
+                                if ($fileName !== null) {
+                                    $downloadPath = '../img/taskFiles/' . $fileName;
+                                    ?>
+                                    <a href="<?php echo $downloadPath ?>" download style='margin-left: 70px;'
+                                       class='download-file-button'>Keep file
+                                    </a>
+                                <?php } else {
+                                    echo "<a class='download-file-button' style='margin-left: 70px' onclick='fileNotFound()'>Keep file </a>";
+                                }
+                            } else {
+                                echo "<a class='download-file-button' onclick='fileNotFound()' style='margin-left: 70px'>Keep file </a>";
+                            }
+                            ?>
 
-                                <select id='statusSelect' class='custom-select' name='status'
-                                        style='margin-right: 0; margin-left: 45px;  color: #007bff'>
-                                    <option value='0' <?php echo ($selected == '0') ? 'selected' : ''; ?>>Not Started
-                                    </option>
-                                    <option value='1' <?php echo ($selected == '1') ? 'selected' : ''; ?>>In Process</option>
-                                    <option value='2' <?php echo ($selected == '2') ? 'selected' : ''; ?>>In Test
-                                    </option>
-                                    <option value='3' <?php echo ($selected == '3') ? 'selected' : ''; ?>>Done
-                                    </option>
-                                </select>
-                            </form>
+                            <select id='statusSelect' class='custom-select' name='status'
+                                    style='margin-right: 0; margin-left: 45px;  color: #007bff'>
+                                <option value='0' <?php echo ($selected == '0') ? 'selected' : ''; ?>>Not Started
+                                </option>
+                                <option value='1' <?php echo ($selected == '1') ? 'selected' : ''; ?>>In Process
+                                </option>
+                                <option value='2' <?php echo ($selected == '2') ? 'selected' : ''; ?>>In Test
+                                </option>
+                                <option value='3' <?php echo ($selected == '3') ? 'selected' : ''; ?>>Done
+                                </option>
+                            </select>
+                        </form>
                     </div>
 
                     <div id='<?php echo $modalId; ?>' class='modal'>
@@ -106,7 +133,8 @@ ob_start(); ?>
                             }
                             ?>
                             <p style='margin: 10px'>ID - <?php echo $itemId; ?></p>
-                            <p style='margin: 10px; max-width: 90%; word-wrap: break-word; '>Subject - <?php echo $text; ?></p>
+                            <p style='margin: 10px; max-width: 90%; word-wrap: break-word; '>Subject
+                                - <?php echo $text; ?></p>
                             <p style='margin: 10px'>Status - <?php echo $status; ?></p>
                             <p style='color: #328a02; margin: 10px'>Last Updated - <?php echo $createdAt; ?></p>
                             <p style='color: red; margin: 10px'>Deadline - <?php echo $dataTime; ?></p>
@@ -151,6 +179,12 @@ ob_start(); ?>
 
 <script src="../js/script.js"></script>
 <script src="../js/taskHistory.js"></script>
+
+<script>
+    function fileNotFound() {
+        alert("Task has on file");
+    }
+</script>
 </body>
 </html>
 
