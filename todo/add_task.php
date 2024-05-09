@@ -65,7 +65,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['update'])) {
         $updateId = $_POST['itemId'];
         $task = $todo->findTaskById($updateId);
-        $userId = $task['user_id'];
+
+        $todoFun->updateTask($task);
+    }
+
+    if (isset($_POST['status']) && isset($_POST['itemId'])) {
+        $status = $_POST['status'];
+        $itemId = $_POST['itemId'];
+        $selected = $todo->markCompletedById($itemId, $status);
+
+        if (!$selected) {
+            $todoFun->handleError('selected_failed');
+        }
+
+        $taskData = $todo->findTaskById($itemId);
+        $userId = $taskData['user_id'];
         $status = 0;
         $statusCount = $todo->findTaskCountByStatus($userId, $status);
         $_SESSION['status'] = $statusCount;
@@ -83,17 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['status3'] = $statusCount;
 
         header('Location: ../view/singlePage.php');
-        $todoFun->updateTask($task);
-    }
 
-    if (isset($_POST['status']) && isset($_POST['itemId'])) {
-        $status = $_POST['status'];
-        $itemId = $_POST['itemId'];
-        $selected = $todo->markCompletedById($itemId, $status);
-
-        if (!$selected) {
-            $todoFun->handleError('selected_failed');
-        }
         $todoFun->reloadTodoList();
     }
 
