@@ -16,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $userId = $_POST['id'];
 
 
-
     if (isset($_POST['delete'])) {
         $deleteFileId = $_POST['fileId'];
         $deleted_directory = '../img/taskFiles/';
@@ -32,10 +31,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $deleteFile = $taskFile->deleteFileById($deleteFileId);
         $deleteId = $_POST['itemId'];
+        $taskData = $todo->findTaskById($deleteId);
+        $userId = $taskData['user_id'];
         $deleteResult = $todo->deleteById($deleteId);
 
         if ($deleteResult) {
-
+            $count = $todo->getTaskCountByUserId($userId);
+            $_SESSION['count'] = $count;
+            header('Location: ../view/singlePage.php');
             $todoFun->reloadTodoList();
         } else {
             $todoFun->handleError('delete_failed');
