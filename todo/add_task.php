@@ -11,6 +11,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $taskFile = new TaskFile();
     $todoFun = new TodoFunctions();
 
+    $text = $_POST['text'];
+    $dateTime = $_POST['dateTime'];
+    $userId = $_POST['id'];
+
+
+
     if (isset($_POST['delete'])) {
         $deleteFileId = $_POST['fileId'];
         $deleted_directory = '../img/taskFiles/';
@@ -25,10 +31,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         $deleteFile = $taskFile->deleteFileById($deleteFileId);
-
         $deleteId = $_POST['itemId'];
         $deleteResult = $todo->deleteById($deleteId);
+
         if ($deleteResult) {
+
             $todoFun->reloadTodoList();
         } else {
             $todoFun->handleError('delete_failed');
@@ -52,9 +59,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $todoFun->reloadTodoList();
     }
 
-    $text = $_POST['text'];
-    $dateTime = $_POST['dateTime'];
-    $userId = $_POST['id'];
+    date_default_timezone_set('Asia/Yerevan');
+
+    $currentDateTime = new DateTime();
+    $currentDateTime->modify('+10 minutes');
+
+    try {
+        $inputDateTime = new DateTime($dateTime);
+    } catch (Exception $e) {
+        return;
+    }
+
+    if ($inputDateTime < $currentDateTime) {
+        header("Location: ../view/addTask.php?error=invalid_dateTime_extension");
+        exit;
+    }
+
     $saveResult = $todo->save($text, $dateTime, $userId);
     if ($saveResult) {
         if (isset($_FILES['task_file']) && $_FILES['task_file']['error'] === UPLOAD_ERR_OK) {
@@ -82,6 +102,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $fileId = $file['id'];
             $todo->updateText($taskId, $text, $dateTime, $fileId);
         }
+
+        $count = $todo->getTaskCountByUserId($userId);
+
+        $_SESSION['count'] = $count;
+        header("Location: ../view/singlePage.php");
 
         $todoFun->reloadTodoList();
 

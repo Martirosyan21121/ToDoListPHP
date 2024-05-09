@@ -1,3 +1,10 @@
+<?php
+$invalid_dataTime = '';
+if (isset($_GET['error']) && $_GET['error'] === 'invalid_dateTime_extension') {
+    $invalid_dataTime = "Please input active date and time (more than 10 minute of current time)";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="">
 <head>
@@ -26,7 +33,12 @@
                 <input class="text" type="text" name="text" placeholder="Text" required="">
                 <br>
                 <input type="datetime-local" name="dateTime" placeholder="Data time" step="60" required="">
+
                 <span style="color: red; margin-left: 10px">Deadline</span>
+                <?php if (!empty($invalid_dataTime)) { ?>
+                    <p style="color: red; margin-top: 10px"><?php echo $invalid_dataTime; ?></p>
+                <?php } ?>
+
                 <?php
                 session_start();
                 if (isset($_SESSION['id'])) {

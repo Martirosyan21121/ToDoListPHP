@@ -12,7 +12,7 @@ if (isset($_GET['error']) && $_GET['error'] === 'min_length') {
 }
 $invalid_extension = '';
 if (isset($_GET['error']) && $_GET['error'] === 'invalid_file_extension') {
-    $invalid_extension = "Invalid file extension. Please upload a JPG or JPEG or PNG file.";
+    $invalid_extension = "Invalid file extension. Please upload a JPG, JPEG or PNG file.";
 }
 ?>
 

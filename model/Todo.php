@@ -80,4 +80,18 @@ class Todo extends DBConnection
         $stmt->close();
         return $success;
     }
+    public function getTaskCountByUserId($userId)
+    {
+        $sql = "SELECT COUNT(*) AS task_count FROM todo.todo_list WHERE user_id = ?";
+        $stmt = $this->connection->prepare($sql);
+        if (!$stmt) {
+            return false;
+        }
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $stmt->bind_result($taskCount);
+        $stmt->fetch();
+        $stmt->close();
+        return $taskCount;
+    }
 }

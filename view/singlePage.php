@@ -41,6 +41,17 @@ ob_start();
     </nav>
 
     <?php
+    if (isset($_SESSION['count'])) {
+        $count = $_SESSION['count'];
+        echo "<p style='text-align: center; font-size: 20px'> All tasks - $count </p>";
+        echo "<p style='text-align: center; font-size: 20px'> Not started - $count </p>";
+        echo "<p style='text-align: center; font-size: 20px'> In progres- $count </p>";
+        echo "<p style='text-align: center; font-size: 20px'> In test - $count </p>";
+        echo "<p style='text-align: center; font-size: 20px'> Done - $count </p>";
+    }
+    ?>
+
+    <?php
     if (isset($_SESSION['user'])) {
         $user = new User();
         $username = $_SESSION['user']['username'];
@@ -49,13 +60,13 @@ ob_start();
         if (isset($_SESSION['pic_path'])) {
             $profilePic = $_SESSION['pic_path'];
             if (!$profilePic == null) {
-                echo "<img class='avatar' alt='Avatar' src='$profilePic' style='margin-left: 80%; margin-top: -30px'>";
+                echo "<img class='avatar' alt='Avatar' src='$profilePic' style='margin-left: 80%; margin-top: -20%'>";
             }
-        }else {
-            echo "<img class='avatar' alt='Avatar' src='../img/profilePic.png' style='margin-left: 80%; margin-top: -30px'>";
+        } else {
+            echo "<img class='avatar' alt='Avatar' src='../img/profilePic.png' style='margin-left: 80%; margin-top: -20%'>";
         }
 
-        echo "<h3 style='margin-left: 75%; margin-top: 10px'> Username:____$username</h3>";
+        echo "<h3 style='margin-left: 75%; margin-top: -100px'> Username:____$username</h3>";
         echo "<br>";
         echo "<h3 style='margin-left: 75%; margin-top: -10px'> Email:____ $email</h3>";
 

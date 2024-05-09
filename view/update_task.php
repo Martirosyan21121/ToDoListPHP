@@ -2,6 +2,11 @@
 session_start();
 require_once '../model/TaskFile.php';
 
+$invalid_dataTime = '';
+if (isset($_GET['error']) && $_GET['error'] === 'invalid_dateTime_extension') {
+    $invalid_dataTime = "Please input active date and time (more than 10 minute of current time)";
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -42,7 +47,9 @@ require_once '../model/TaskFile.php';
                     <br>
                     <input type="datetime-local"  name="dateTime" value="<?php echo $date_time?>" placeholder="Data time" required="">
                     <span style="color: red; margin-left: 10px">Deadline</span>
-
+                    <?php if (!empty($invalid_dataTime)) { ?>
+                        <p style="color: red; margin-top: 10px"><?php echo $invalid_dataTime; ?></p>
+                    <?php } ?>
                     <div class="file-input-container">
                         <label for="file-input" class="custom-file-upload">
                             Choose file

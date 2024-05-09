@@ -1,11 +1,13 @@
 <?php
 require_once '../model/User.php';
+require_once '../model/Todo.php';
 require_once '../model/UserPic.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
     $user = new User();
+    $todo = new Todo();
     $userPic = new UserPic();
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -27,6 +29,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $userPic->userPicPath($uploaded_image_path);
         }
 
+        $user1 = $user->getUserDataByEmail($email);
+        $userId = $user1['id'];
+        $count = $todo->getTaskCountByUserId($userId);
+
+        $_SESSION['count'] = $count;
+
+        header("Location: ../view/singlePage.php");
         $user->userData($userData);
 
     } else {

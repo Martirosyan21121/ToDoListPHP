@@ -75,6 +75,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
+    date_default_timezone_set('Asia/Yerevan');
+    $currentDateTime = new DateTime();
+    $currentDateTime->modify('+10 minutes');
+
+    try {
+        $inputDateTime = new DateTime($dateTime);
+    } catch (Exception $e) {
+        return;
+    }
+
+    if ($inputDateTime < $currentDateTime) {
+        header("Location: ../view/update_task.php?error=invalid_dateTime_extension");
+        exit;
+    }
+
     $updateResult = $todo->updateText($id, $text, $dateTime, $fileId);
     if ($updateResult) {
         $todoFun->reloadTodoList();
