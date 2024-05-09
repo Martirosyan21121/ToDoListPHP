@@ -52,7 +52,7 @@ ob_start();
                 echo "<img class='avatar' alt='Avatar' src='$profilePic' style='margin-left: 80%; margin-top: -30px'>";
             }
         }else {
-            echo "<img class='avatar' alt='Avatar' src='../img/profilePick.png' style='margin-left: 80%; margin-top: -30px'>";
+            echo "<img class='avatar' alt='Avatar' src='../img/profilePic.png' style='margin-left: 80%; margin-top: -30px'>";
         }
 
         echo "<h3 style='margin-left: 75%; margin-top: 10px'> Username:____$username</h3>";
