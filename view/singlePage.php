@@ -44,11 +44,27 @@ ob_start();
     if (isset($_SESSION['count'])) {
         $count = $_SESSION['count'];
         echo "<p style='text-align: center; font-size: 20px'> All tasks - $count </p>";
-        echo "<p style='text-align: center; font-size: 20px'> Not started - $count </p>";
-        echo "<p style='text-align: center; font-size: 20px'> In progres- $count </p>";
-        echo "<p style='text-align: center; font-size: 20px'> In test - $count </p>";
-        echo "<p style='text-align: center; font-size: 20px'> Done - $count </p>";
     }
+    if (isset($_SESSION['status'])) {
+        $statusCount = $_SESSION['status'];
+        echo "<p style='text-align: center; font-size: 20px'> Not started - $statusCount </p>";
+    }
+
+    if (isset($_SESSION['status1'])) {
+        $statusCount = $_SESSION['status1'];
+        echo "<p style='text-align: center; font-size: 20px'> In progres- $statusCount </p>";
+    }
+
+    if (isset($_SESSION['status2'])) {
+        $statusCount = $_SESSION['status2'];
+        echo "<p style='text-align: center; font-size: 20px'> In test - $statusCount </p>";
+    }
+
+    if (isset($_SESSION['status3'])) {
+        $statusCount = $_SESSION['status3'];
+        echo "<p style='text-align: center; font-size: 20px'> Done - $statusCount </p>";
+    }
+
     ?>
 
     <?php

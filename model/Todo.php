@@ -94,4 +94,19 @@ class Todo extends DBConnection
         $stmt->close();
         return $taskCount;
     }
+
+    public function findTaskCountByStatus($userId, $status)
+    {
+        $sql = "SELECT COUNT(*) AS task_count FROM todo.todo_list WHERE user_id = ? AND status = ?";
+        $stmt = $this->connection->prepare($sql);
+        if (!$stmt) {
+            return false;
+        }
+        $stmt->bind_param("is", $userId, $status);
+        $stmt->execute();
+        $stmt->bind_result($taskCount);
+        $stmt->fetch();
+        $stmt->close();
+        return $taskCount;
+    }
 }

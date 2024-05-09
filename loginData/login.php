@@ -32,8 +32,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $user1 = $user->getUserDataByEmail($email);
         $userId = $user1['id'];
         $count = $todo->getTaskCountByUserId($userId);
-
         $_SESSION['count'] = $count;
+
+        $status = 0;
+        $statusCount = $todo->findTaskCountByStatus($userId, $status);
+        $_SESSION['status'] = $statusCount;
+
+        $status = 1;
+        $statusCount = $todo->findTaskCountByStatus($userId, $status);
+        $_SESSION['status1'] = $statusCount;
+
+        $status = 2;
+        $statusCount = $todo->findTaskCountByStatus($userId, $status);
+        $_SESSION['status2'] = $statusCount;
+
+        $status = 3;
+        $statusCount = $todo->findTaskCountByStatus($userId, $status);
+        $_SESSION['status3'] = $statusCount;
 
         header("Location: ../view/singlePage.php");
         $user->userData($userData);

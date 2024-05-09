@@ -38,6 +38,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($deleteResult) {
             $count = $todo->getTaskCountByUserId($userId);
             $_SESSION['count'] = $count;
+
+            $status = 0;
+            $statusCount = $todo->findTaskCountByStatus($userId, $status);
+            $_SESSION['status'] = $statusCount;
+
+            $status = 1;
+            $statusCount = $todo->findTaskCountByStatus($userId, $status);
+            $_SESSION['status1'] = $statusCount;
+
+            $status = 2;
+            $statusCount = $todo->findTaskCountByStatus($userId, $status);
+            $_SESSION['status2'] = $statusCount;
+
+            $status = 3;
+            $statusCount = $todo->findTaskCountByStatus($userId, $status);
+            $_SESSION['status3'] = $statusCount;
+
             header('Location: ../view/singlePage.php');
             $todoFun->reloadTodoList();
         } else {
@@ -48,6 +65,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['update'])) {
         $updateId = $_POST['itemId'];
         $task = $todo->findTaskById($updateId);
+        $userId = $task['user_id'];
+        $status = 0;
+        $statusCount = $todo->findTaskCountByStatus($userId, $status);
+        $_SESSION['status'] = $statusCount;
+
+        $status = 1;
+        $statusCount = $todo->findTaskCountByStatus($userId, $status);
+        $_SESSION['status1'] = $statusCount;
+
+        $status = 2;
+        $statusCount = $todo->findTaskCountByStatus($userId, $status);
+        $_SESSION['status2'] = $statusCount;
+
+        $status = 3;
+        $statusCount = $todo->findTaskCountByStatus($userId, $status);
+        $_SESSION['status3'] = $statusCount;
+
+        header('Location: ../view/singlePage.php');
         $todoFun->updateTask($task);
     }
 
@@ -107,8 +142,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         $count = $todo->getTaskCountByUserId($userId);
-
         $_SESSION['count'] = $count;
+
+        $status = 0;
+        $statusCount = $todo->findTaskCountByStatus($userId, $status);
+        $_SESSION['status'] = $statusCount;
+
+        $status = 1;
+        $statusCount = $todo->findTaskCountByStatus($userId, $status);
+        $_SESSION['status1'] = $statusCount;
+
+        $status = 2;
+        $statusCount = $todo->findTaskCountByStatus($userId, $status);
+        $_SESSION['status2'] = $statusCount;
+
+        $status = 3;
+        $statusCount = $todo->findTaskCountByStatus($userId, $status);
+        $_SESSION['status3'] = $statusCount;
         header("Location: ../view/singlePage.php");
 
         $todoFun->reloadTodoList();
