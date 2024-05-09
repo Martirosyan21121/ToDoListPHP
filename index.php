@@ -20,6 +20,7 @@ if (isset($_GET['error']) && $_GET['error'] === 'wrong_login') {
 <html lang="">
 <head>
     <title>Login page</title>
+    <link rel="icon" href="/img/logo/logo.jpg" type="image/gif" sizes="any">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <script type="application/x-javascript"> addEventListener("load", function () {
@@ -35,9 +36,8 @@ if (isset($_GET['error']) && $_GET['error'] === 'wrong_login') {
 </head>
 <body>
 <div class="main-w3layouts wrapper">
-    <h1>Please Login</h1>
+    <h1>Please Log in</h1>
     <div class="main-agileinfo">
-
         <div class="agileits-top">
 
             <form action="loginData/login.php" method="post">
@@ -53,9 +53,9 @@ if (isset($_GET['error']) && $_GET['error'] === 'wrong_login') {
                 <br>
             <?php } ?>
             <p>Don't have an Account? <a href="view/register.php"> Register Now!</a></p>
-
         </div>
     </div>
+
     <div class="colorlibcopy-agile">
         <p>© 2024 project ToDo list using PHP</p>
     </div>

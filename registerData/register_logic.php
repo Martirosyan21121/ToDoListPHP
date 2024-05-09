@@ -1,5 +1,6 @@
 <?php
 require_once '../model/User.php';
+require_once '../model/UserPic.php';
 
 if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
     $username = $_POST ['username'];
@@ -7,6 +8,7 @@ if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
     $password = $_POST ['password'];
 
     $user = new User();
+    $userPic = new UserPic();
 
     if (strlen($username) < 5) {
         header("Location: ../view/register.php?error=min_length");
@@ -16,9 +18,7 @@ if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
     if ($user->emailExists($email)) {
         header("Location: ../view/register.php?error=email_exist");
         exit;
-    }
-
- else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         header("Location: ../view/register.php?error=invalid_email");
         exit;
     }
@@ -28,18 +28,17 @@ if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
         exit;
     }
 
+
     session_start();
     $registered = $user->register($username, $email, $password);
     if ($registered) {
-        $_SESSION['username'] = $username;
-        $_SESSION['email'] = $email;
-
         $userData = $user->getUserDataByEmail($email);
-        $_SESSION['database'] = $userData;
-
-        header("Location: ../view/singlePage.php");
+        $user->userData($userData);
         exit;
     } else {
         echo "Registration failed.";
     }
+} else {
+    echo "Sorry, there was an error uploading your file.";
 }
+

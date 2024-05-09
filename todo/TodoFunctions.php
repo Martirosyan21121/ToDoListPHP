@@ -5,10 +5,10 @@ class TodoFunctions
     function reloadTodoList()
     {
         $todo = new Todo();
-        $userId = $_SESSION['database']['id'];
+        $userId = $_SESSION['user']['id'];
         $show = $todo->getAllByUserId($userId);
-        $_SESSION['allData'] = $show;
-        header('Location: ../view/singlePage.php');
+        $_SESSION['allTasks'] = $show;
+        header('Location: ../view/allTasks.php');
         exit();
     }
 

@@ -776,6 +776,25 @@ input.checkbox:checked:after {
     background-color: #8DC26F;
 }
 
+
+.download-file-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #0016bf;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.download-file-button:hover {
+    background-color: rgba(0, 25, 158, 0.75);
+}
+
+
+
+
 .delete-task-button {
     padding: 10px 20px;
     font-size: 16px;
@@ -790,30 +809,34 @@ input.checkbox:checked:after {
 .delete-task-button:hover {
     background-color: rgb(255, 89, 89);
 }
-
-
-
+.top-bar {
+    padding: 10px; /* Adjust padding as needed */
+    display: flex; /* Use flexbox layout */
+    justify-content: flex-start; /* Align items to the start of the flex container */
+    align-items: center; /* Center items vertically */
+}
 .cart {
+
     border: 1px solid #ccc;
     border-radius: 10px;
     padding: 10px;
-    width: 500px;
-    margin: 0 auto;
+    width: 700px;
+    margin: 30px auto;
     height: auto;
 }
 .cart-item {
     margin-bottom: 10px;
+    min-height: 200px;
     padding: 5px;
+    height: auto;
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 10px;
     overflow: hidden;
 }
 .item-title {
+    word-wrap: break-word;
     font-weight: bold;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 .item-description {
     overflow: hidden;
@@ -822,100 +845,252 @@ input.checkbox:checked:after {
 
 
 
-@supports (-webkit-appearance: none) or (-moz-appearance: none) {
-    .checkbox-wrapper-13 input[type=checkbox] {
-        --active: #43ba07;
-        --active-inner: #fff;
-        --focus: 2px rgba(2, 221, 0, 0.3);
-        --border: rgba(50, 147, 0, 0.68);
-        --border-hover: #5eb62e;
-        --background: #fff;
-        --disabled: #F6F8FF;
-        --disabled-inner: #E1E6F9;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        height: 21px;
-        outline: none;
-        display: inline-block;
-        vertical-align: top;
-        position: relative;
-        margin: 0;
-        cursor: pointer;
-        border: 1px solid var(--bc, var(--border));
-        background: var(--b, var(--background));
-        transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
-    }
-    .checkbox-wrapper-13 input[type=checkbox]:after {
-        content: "";
-        display: block;
-        left: 0;
-        top: 0;
-        position: absolute;
-        transition: transform; var(--d-o, 0.3s): var(--d-t-e, ease), opacity var(--d-o, 0.2s);
-    }
-    .checkbox-wrapper-13 input[type=checkbox]:checked {
-        --b: var(--active);
-        --bc: var(--active);
-        --d-o: .3s;
-        --d-t: .6s;
-        --d-t-e: cubic-bezier(.2, .85, .32, 1.2);
-    }
-    .checkbox-wrapper-13 input[type=checkbox]:disabled {
-        --b: var(--disabled);
-        cursor: not-allowed;
-        opacity: 0.9;
-    }
-    .checkbox-wrapper-13 input[type=checkbox]:disabled:checked {
-        --b: var(--disabled-inner);
-        --bc: var(--border);
-    }
-    .checkbox-wrapper-13 input[type=checkbox]:disabled + label {
-        cursor: not-allowed;
-    }
-    .checkbox-wrapper-13 input[type=checkbox]:hover:not(:checked):not(:disabled) {
-        --bc: var(--border-hover);
-    }
-    .checkbox-wrapper-13 input[type=checkbox]:focus {
-        box-shadow: 0 0 0 var(--focus);
-    }
-    .checkbox-wrapper-13 input[type=checkbox]:not(.switch) {
-        width: 21px;
-    }
-    .checkbox-wrapper-13 input[type=checkbox]:not(.switch):after {
-        opacity: var(--o, 0);
-    }
-    .checkbox-wrapper-13 input[type=checkbox]:not(.switch):checked {
-        --o: 1;
-    }
-    .checkbox-wrapper-13 input[type=checkbox] + label {
-        display: inline-block;
-        vertical-align: middle;
-        cursor: pointer;
-        margin-left: 4px;
-    }
+/*@supports (-webkit-appearance: none) or (-moz-appearance: none) {*/
+/*    .checkbox-wrapper-13 input[type=checkbox] {*/
+/*        --active: #43ba07;*/
+/*        --active-inner: #fff;*/
+/*        --focus: 2px rgba(2, 221, 0, 0.3);*/
+/*        --border: rgba(50, 147, 0, 0.68);*/
+/*        --border-hover: #5eb62e;*/
+/*        --background: #fff;*/
+/*        --disabled: #F6F8FF;*/
+/*        --disabled-inner: #E1E6F9;*/
+/*        -webkit-appearance: none;*/
+/*        -moz-appearance: none;*/
+/*        height: 21px;*/
+/*        outline: none;*/
+/*        display: inline-block;*/
+/*        vertical-align: top;*/
+/*        position: relative;*/
+/*        margin: 0;*/
+/*        cursor: pointer;*/
+/*        border: 1px solid var(--bc, var(--border));*/
+/*        background: var(--b, var(--background));*/
+/*        transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;*/
+/*    }*/
+/*    .checkbox-wrapper-13 input[type=checkbox]:after {*/
+/*        content: "";*/
+/*        display: block;*/
+/*        left: 0;*/
+/*        top: 0;*/
+/*        position: absolute;*/
+/*        transition: transform; var(--d-o, 0.3s): var(--d-t-e, ease), opacity var(--d-o, 0.2s);*/
+/*    }*/
+/*    .checkbox-wrapper-13 input[type=checkbox]:checked {*/
+/*        --b: var(--active);*/
+/*        --bc: var(--active);*/
+/*        --d-o: .3s;*/
+/*        --d-t: .6s;*/
+/*        --d-t-e: cubic-bezier(.2, .85, .32, 1.2);*/
+/*    }*/
+/*    .checkbox-wrapper-13 input[type=checkbox]:disabled {*/
+/*        --b: var(--disabled);*/
+/*        cursor: not-allowed;*/
+/*        opacity: 0.9;*/
+/*    }*/
+/*    .checkbox-wrapper-13 input[type=checkbox]:disabled:checked {*/
+/*        --b: var(--disabled-inner);*/
+/*        --bc: var(--border);*/
+/*    }*/
+/*    .checkbox-wrapper-13 input[type=checkbox]:disabled + label {*/
+/*        cursor: not-allowed;*/
+/*    }*/
+/*    .checkbox-wrapper-13 input[type=checkbox]:hover:not(:checked):not(:disabled) {*/
+/*        --bc: var(--border-hover);*/
+/*    }*/
+/*    .checkbox-wrapper-13 input[type=checkbox]:focus {*/
+/*        box-shadow: 0 0 0 var(--focus);*/
+/*    }*/
+/*    .checkbox-wrapper-13 input[type=checkbox]:not(.switch) {*/
+/*        width: 21px;*/
+/*    }*/
+/*    .checkbox-wrapper-13 input[type=checkbox]:not(.switch):after {*/
+/*        opacity: var(--o, 0);*/
+/*    }*/
+/*    .checkbox-wrapper-13 input[type=checkbox]:not(.switch):checked {*/
+/*        --o: 1;*/
+/*    }*/
+/*    .checkbox-wrapper-13 input[type=checkbox] + label {*/
+/*        display: inline-block;*/
+/*        vertical-align: middle;*/
+/*        cursor: pointer;*/
+/*        margin-left: 4px;*/
+/*    }*/
 
-    .checkbox-wrapper-13 input[type=checkbox]:not(.switch) {
-        border-radius: 7px;
-    }
-    .checkbox-wrapper-13 input[type=checkbox]:not(.switch):after {
-        width: 5px;
-        height: 9px;
-        border: 2px solid var(--active-inner);
-        border-top: 0;
-        border-left: 0;
-        left: 7px;
-        top: 4px;
-        transform: rotate(var(--r, 20deg));
-    }
-    .checkbox-wrapper-13 input[type=checkbox]:not(.switch):checked {
-        --r: 43deg;
-    }
+/*    .checkbox-wrapper-13 input[type=checkbox]:not(.switch) {*/
+/*        border-radius: 7px;*/
+/*    }*/
+/*    .checkbox-wrapper-13 input[type=checkbox]:not(.switch):after {*/
+/*        width: 5px;*/
+/*        height: 9px;*/
+/*        border: 2px solid var(--active-inner);*/
+/*        border-top: 0;*/
+/*        border-left: 0;*/
+/*        left: 7px;*/
+/*        top: 4px;*/
+/*        transform: rotate(var(--r, 20deg));*/
+/*    }*/
+/*    .checkbox-wrapper-13 input[type=checkbox]:not(.switch):checked {*/
+/*        --r: 43deg;*/
+/*    }*/
+/*}*/
+
+/*.checkbox-wrapper-13 * {*/
+/*    box-sizing: inherit;*/
+/*}*/
+/*.checkbox-wrapper-13 *:before,*/
+/*.checkbox-wrapper-13 *:after {*/
+/*    box-sizing: inherit;*/
+/*}*/
+
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
 }
 
-.checkbox-wrapper-13 * {
-    box-sizing: inherit;
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
 }
-.checkbox-wrapper-13 *:before,
-.checkbox-wrapper-13 *:after {
-    box-sizing: inherit;
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
 }
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-btn {
+    font-size: 24px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+#modal-btn:hover {
+    background-color: #0056b3;
+}
+
+
+.modal-btn {
+    font-size: 24px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.modal-btn:hover {
+    background-color: #0056b3;
+}
+
+.avatar {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.custom-select {
+    padding: 10px; /* Padding inside the select box */
+    font-size: 16px; /* Font size */
+    border: 1px solid #ccc; /* Border color */
+    border-radius: 5px; /* Border radius to round the corners */
+    background-color: #f8f8f8; /* Background color */
+    color: #333; /* Text color */
+    width: 200px; /* Width of the select box */
+}
+
+.custom-select:hover {
+    border-color: #666;
+}
+
+.custom-select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.custom-select::-ms-expand {
+    display: none;
+}
+
+.custom-select option {
+    background-color: #fff;
+    color: #333;
+}
+
+/* Style for the select when disabled */
+.custom-select:disabled {
+    opacity: 0.5; /* Reduce opacity for disabled state */
+    pointer-events: none; /* Disable pointer events */
+}
+
+input[type="datetime-local"] {
+    /* Your styles here */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box; /* Ensure padding and border are included in the element's total width */
+}
+
+/* Example additional styles */
+input[type="datetime-local"]:focus {
+    outline: none; /* Remove default focus outline */
+    border-color: dodgerblue; /* Change border color on focus */
+}
+
+.file-input-container {
+    margin-top: 10px;
+    position: relative;
+    /*display: inline-block;*/
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#file-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+#file-name {
+    margin-left: 10px;
+    color: #333;
+}
+
+
+

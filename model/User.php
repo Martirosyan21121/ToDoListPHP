@@ -10,8 +10,8 @@ class User extends DBConnection
         if (!$stmt) {
             return false;
         }
-        $stmt->bind_param("sss", $username, $email, $hashed_password);
         $hashed_password = md5($password);
+        $stmt->bind_param("sss", $username, $email, $hashed_password);
         $success = $stmt->execute();
         $stmt->close();
         return $success;
@@ -36,10 +36,14 @@ class User extends DBConnection
         if ($result->num_rows == 1) {
             return true;
         }
-
         return false;
     }
-
+    
+    public function userData($user)
+    {
+        $_SESSION['user'] = $user;
+        header('Location: ../view/singlePage.php');
+    }
 
     public function getUserDataByEmail($email) {
         $stmt = $this->connection->prepare("SELECT * FROM todo.user WHERE email = ?");
@@ -50,8 +54,19 @@ class User extends DBConnection
         if ($result->num_rows == 1) {
             return $result->fetch_assoc();
         } else {
-            return null; // User not found
+            return null;
         }
     }
 
+    public function updateUserById($username, $email, $fileId, $userId) {
+        $sql = "UPDATE todo.user SET username = ?, email = ?, files_id = ? WHERE id = ?";
+        $stmt = $this->connection->prepare($sql);
+        if (!$stmt) {
+            return false;
+        }
+        $stmt->bind_param("sssi", $username, $email, $fileId, $userId);
+        $updated = $stmt->execute();
+        $stmt->close();
+        return $updated;
+    }
 }

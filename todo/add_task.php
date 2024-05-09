@@ -1,18 +1,33 @@
 <?php
 require_once '../model/Todo.php';
 require_once '../todo/TodoFunctions.php';
+require_once '../model/TaskFile.php';
 
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
     $todo = new Todo();
+    $taskFile = new TaskFile();
     $todoFun = new TodoFunctions();
 
     if (isset($_POST['delete'])) {
+        $deleteFileId = $_POST['fileId'];
+        $deleted_directory = '../img/taskFiles/';
+        $file = $taskFile->findFileById($deleteFileId);
+        $deleteFileName = $file['files_name'];
+
+        if ($file !== null) {
+            $filePathToUpdate = $deleted_directory . $deleteFileName;
+            if (file_exists($filePathToUpdate)) {
+                unlink($filePathToUpdate);
+            }
+        }
+
+        $deleteFile = $taskFile->deleteFileById($deleteFileId);
 
         $deleteId = $_POST['itemId'];
         $deleteResult = $todo->deleteById($deleteId);
-
         if ($deleteResult) {
             $todoFun->reloadTodoList();
         } else {
@@ -26,28 +41,51 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $todoFun->updateTask($task);
     }
 
-    if (isset($_POST['done'])) {
-        $checkedItems = $_POST['done'];
-        foreach ($checkedItems as $checkedItem) {
-            $checked = $todo->markCompletedById($checkedItem);
-            if (!$checked) {
-                $todoFun->handleError('mark_failed');
-            }
+    if (isset($_POST['status']) && isset($_POST['itemId'])) {
+        $status = $_POST['status'];
+        $itemId = $_POST['itemId'];
+        $selected = $todo->markCompletedById($itemId, $status);
+
+        if (!$selected) {
+            $todoFun->handleError('selected_failed');
         }
         $todoFun->reloadTodoList();
     }
 
     $text = $_POST['text'];
+    $dateTime = $_POST['dateTime'];
     $userId = $_POST['id'];
-    $saveResult = $todo->save($text, $userId);
-
+    $saveResult = $todo->save($text, $dateTime, $userId);
     if ($saveResult) {
+        if (isset($_FILES['task_file']) && $_FILES['task_file']['error'] === UPLOAD_ERR_OK) {
+            $taskId = $saveResult;
+            $task = $todo->findTaskById($taskId);
+            $taskUserId = $task['user_id'];
+            $randomNumber = rand(10000, 1000000);
+            $file_tmp_name = $_FILES['task_file']['tmp_name'];
+            $file_name = $taskId . $randomNumber . $taskUserId . $_FILES['task_file']['name'];
+            $upload_directory = '../img/taskFiles/';
+
+            if (!file_exists($upload_directory)) {
+                mkdir($upload_directory, 0777, true);
+            }
+
+            $uploaded_image_path = $upload_directory . $file_name;
+
+            if (!move_uploaded_file($file_tmp_name, $uploaded_image_path)) {
+                header("Location: ../view/add_task.php?error=file_upload_failed");
+                exit;
+            }
+
+            $taskFile->saveFile($file_name);
+            $file = $taskFile->findFileByName($file_name);
+            $fileId = $file['id'];
+            $todo->updateText($taskId, $text, $dateTime, $fileId);
+        }
+
         $todoFun->reloadTodoList();
+
     } else {
         $todoFun->handleError('save_failed');
     }
 }
-
-
-
-
