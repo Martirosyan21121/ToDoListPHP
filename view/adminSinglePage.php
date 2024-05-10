@@ -44,7 +44,7 @@ ob_start();
                 echo "<img class='avatar' alt='Avatar' src='$profilePic' style='margin-left: 80%; margin-top: -50px'>";
             }
         } else {
-            echo "<img class='avatar' alt='Avatar' src='../img/profilePic.png' style='margin-left: 80%; margin-top: -50%'>";
+            echo "<img class='avatar' alt='Avatar' src='../img/profilePic.png' style='margin-left: 80%; margin-top: -50px'>";
         }
 
         echo "<h3 style='margin-left: 75%; margin-top: 10px'> Username:____$username</h3>";
@@ -58,7 +58,7 @@ ob_start();
     <br>
 
     <?php
-    echo "<form action='../user/user_update.php' method='post'>";
+    echo "<form action='../admin/admin_update.php' method='post'>";
     if (isset($_SESSION['user'])) {
         $email = $_SESSION['user']['email'];
         echo "<input type='hidden' name='email' value='$email'>";

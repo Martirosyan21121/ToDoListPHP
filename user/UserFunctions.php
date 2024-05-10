@@ -5,7 +5,7 @@ class UserFunctions
     function updateUser($user)
     {
         $_SESSION['user_data'] = $user;
-        header('Location: ../view/updateUser.php');
+        header('Location: ../view/updateAdmin.php');
         exit();
     }
 
