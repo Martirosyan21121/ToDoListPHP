@@ -38,11 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $fileId = $file['id'];
     } else {
         $fileId = null;
-        $uploaded_image_path = null;
-        $file_name = null;
     }
-
-
 
     $todoData = $todo->findTaskById($id);
     $fileToUpdateId = $todoData['task_files_id'];
@@ -98,3 +94,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     header('Location: ../view/addTask.php');
 }
+
+

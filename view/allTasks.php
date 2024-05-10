@@ -40,7 +40,6 @@ require_once '../model/TaskFile.php';
                 $createdAt = $row['created_at'];
                 $file_id = $row['task_files_id'];
 
-
                 $file = $taskFile->findFileById($file_id);
 
                 switch ($row['status']) {
@@ -102,6 +101,7 @@ require_once '../model/TaskFile.php';
                                 echo "<a class='download-file-button' onclick='fileNotFound()' style='margin-left: 70px'>Keep file </a>";
                             }
                             ?>
+
 
                             <select id='statusSelect' class='custom-select' name='status'
                                     style='margin-right: 0; margin-left: 45px;  color: #007bff'>

@@ -127,7 +127,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $file_tmp_name = $_FILES['task_file']['tmp_name'];
             $file_name = $taskId . $randomNumber . $taskUserId . $_FILES['task_file']['name'];
             $upload_directory = '../img/taskFiles/';
-
             if (!file_exists($upload_directory)) {
                 mkdir($upload_directory, 0777, true);
             }

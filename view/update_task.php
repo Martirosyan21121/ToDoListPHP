@@ -50,13 +50,16 @@ if (isset($_GET['error']) && $_GET['error'] === 'invalid_dateTime_extension') {
                     <?php if (!empty($invalid_dataTime)) { ?>
                         <p style="color: red; margin-top: 10px"><?php echo $invalid_dataTime; ?></p>
                     <?php } ?>
+
                     <div class="file-input-container">
                         <label for="file-input" class="custom-file-upload">
                             Choose file
                         </label>
                         <input id="file-input" type="file" name="task_file" onchange="fileNameUpdate(this)">
                         <span id="file-name"></span>
+
                     </div>
+
                     <input class="text" type="hidden" name="id" value="<?php echo $id_update ?>">
                     <?php
                 }

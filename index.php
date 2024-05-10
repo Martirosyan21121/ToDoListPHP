@@ -26,7 +26,6 @@ if (isset($_GET['error']) && $_GET['error'] === 'wrong_login') {
     <script type="application/x-javascript"> addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
         }, false);
-
         function hideURLbar() {
             window.scrollTo(0, 1);
         } </script>
@@ -37,6 +36,7 @@ if (isset($_GET['error']) && $_GET['error'] === 'wrong_login') {
 <body>
 <div class="main-w3layouts wrapper">
     <h1>Please Log in</h1>
+
     <div class="main-agileinfo">
         <div class="agileits-top">
 
