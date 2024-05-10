@@ -62,7 +62,7 @@ ob_start();
     if (isset($_SESSION['user'])) {
         $email = $_SESSION['user']['email'];
         echo "<input type='hidden' name='email' value='$email'>";
-        echo "<button class='add-task-button' style='margin-left: 75%;' type='submit' name='update_user'>Update your data</button>";
+        echo "<button class='add-task-button' style='margin-left: 75%;' type='submit' name='update_admin'>Update your data</button>";
     }
     echo "</form>";
     ?>

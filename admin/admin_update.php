@@ -6,10 +6,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user = new User();
     $userFun = new UserFunctions();
 
-    if (isset($_POST['update_user'])) {
+    if (isset($_POST['update_admin'])) {
         $email = $_POST['email'];
         $userData = $user->getUserDataByEmail($email);
-        $userFun->updateUser($userData);
+        $userFun->updateAdmin($userData);
         exit();
     }
 }

@@ -41,8 +41,8 @@ if (isset($_GET['error']) && $_GET['error'] === 'invalid_file_extension') {
 
             <form action="../admin/admin_update_logic.php" method="post" enctype="multipart/form-data">
                 <?php
-                if (isset($_SESSION['user_data'])) {
-                    $user_data = $_SESSION['user_data'];
+                if (isset($_SESSION['admin_data'])) {
+                    $user_data = $_SESSION['admin_data'];
 
                     $user_id = $user_data['id'];
                     $username = $user_data['username'];

@@ -92,12 +92,13 @@ ob_start();
 
         echo "<h3 style='margin-left: 75%; margin-top: -100px'> Username:____$username</h3>";
         echo "<br>";
-        echo "<h3 style='margin-left: 75%; margin-top: -10px'> Email:____ $email</h3>";
+        echo "<h3 style='margin-left: 75%; margin-top: -10px'> Email:____$email</h3>";
 
     } else {
         echo "<p>No username or email found.</p>";
     }
     ?>
+
     <br>
 
     <?php
