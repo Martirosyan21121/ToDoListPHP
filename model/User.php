@@ -42,7 +42,12 @@ class User extends DBConnection
     public function userData($user)
     {
         $_SESSION['user'] = $user;
-        header('Location: ../view/singlePage.php');
+
+        if ($user['user_type'] === 'ADMIN') {
+            header("Location: ../view/adminSinglePage.php");
+        } else {
+            header("Location: ../view/singlePage.php");
+        }
     }
 
     public function getUserDataByEmail($email) {

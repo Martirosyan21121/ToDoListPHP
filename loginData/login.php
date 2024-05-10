@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $userPic->userPicPath($uploaded_image_path);
         }
 
+
         $user1 = $user->getUserDataByEmail($email);
         $userId = $user1['id'];
         $count = $todo->getTaskCountByUserId($userId);
@@ -50,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $statusCount = $todo->findTaskCountByStatus($userId, $status);
         $_SESSION['status3'] = $statusCount;
 
-        header("Location: ../view/singlePage.php");
         $user->userData($userData);
 
     } else {

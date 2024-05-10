@@ -7,7 +7,7 @@ ob_start();
 <!DOCTYPE html>
 <html lang="">
 <head>
-    <title>Single page</title>
+    <title>Admin Single page</title>
     <link rel="icon" href="/img/logo/logo.jpg" type="image/gif" sizes="any">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -29,50 +29,7 @@ ob_start();
     <h1>Your profile</h1>
     <nav class="top-bar">
         <a class="add-task-button" href="../loginData/logout.php" style="margin-left: 50px">Logout</a>
-        <?php
-        echo "<form action='../user/all_tasks.php' method='post'>";
-        if (isset($_SESSION['user'])) {
-            $email = $_SESSION['user']['email'];
-            echo "<input type='hidden' name='email' value='$email'>";
-            echo "<button class='add-task-button' style='margin-left: 50px;' type='submit' name='update_user'>All tasks</button>";
-        }
-        echo "</form>";
-        ?>
     </nav>
-    <?php
-    if (isset($_SESSION['admin'])) {
-        $msg = $_SESSION['admin'];
-        echo "<p> $msg </p>";
-
-    }
-
-    ?>
-    <?php
-    if (isset($_SESSION['count'])) {
-        $count = $_SESSION['count'];
-        echo "<p style='text-align: center; font-size: 20px'> All tasks - $count </p>";
-    }
-    if (isset($_SESSION['status'])) {
-        $statusCount = $_SESSION['status'];
-        echo "<p style='text-align: center; font-size: 20px'> Not started - $statusCount </p>";
-    }
-
-    if (isset($_SESSION['status1'])) {
-        $statusCount = $_SESSION['status1'];
-        echo "<p style='text-align: center; font-size: 20px'> In progres- $statusCount </p>";
-    }
-
-    if (isset($_SESSION['status2'])) {
-        $statusCount = $_SESSION['status2'];
-        echo "<p style='text-align: center; font-size: 20px'> In test - $statusCount </p>";
-    }
-
-    if (isset($_SESSION['status3'])) {
-        $statusCount = $_SESSION['status3'];
-        echo "<p style='text-align: center; font-size: 20px'> Done - $statusCount </p>";
-    }
-
-    ?>
 
     <?php
     if (isset($_SESSION['user'])) {
@@ -84,13 +41,13 @@ ob_start();
         if (isset($_SESSION['pic_path'])) {
             $profilePic = $_SESSION['pic_path'];
             if (!$profilePic == null) {
-                echo "<img class='avatar' alt='Avatar' src='$profilePic' style='margin-left: 80%; margin-top: -20%'>";
+                echo "<img class='avatar' alt='Avatar' src='$profilePic' style='margin-left: 80%; margin-top: -50px'>";
             }
         } else {
-            echo "<img class='avatar' alt='Avatar' src='../img/profilePic.png' style='margin-left: 80%; margin-top: -20%'>";
+            echo "<img class='avatar' alt='Avatar' src='../img/profilePic.png' style='margin-left: 80%; margin-top: -50%'>";
         }
 
-        echo "<h3 style='margin-left: 75%; margin-top: -100px'> Username:____$username</h3>";
+        echo "<h3 style='margin-left: 75%; margin-top: 10px'> Username:____$username</h3>";
         echo "<br>";
         echo "<h3 style='margin-left: 75%; margin-top: -10px'> Email:____ $email</h3>";
 
