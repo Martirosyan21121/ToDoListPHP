@@ -8,7 +8,7 @@ class Admin extends DBConnection
 {
     public function getAllUserData()
     {
-        $sql = "SELECT * FROM todo.user";
+        $sql = "SELECT * FROM todo.user where user_type = 'USER'";
         $result = $this->connection->query($sql);
         return $result->fetch_all(MYSQLI_ASSOC);
     }

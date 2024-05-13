@@ -51,6 +51,7 @@ require_once '../controller/AdminController.php';
         <?php
         $adminController = new AdminController();
         $allUsers = $adminController->allUsersData();
+
       foreach ($allUsers as $user): ?>
         <tr>
             <td> <?= $user['id'] ?>
@@ -66,7 +67,6 @@ require_once '../controller/AdminController.php';
                 <?php endforeach; ?>
         </tbody>
     </table>
-
     <br>
 
     <div class="colorlibcopy-agile">
