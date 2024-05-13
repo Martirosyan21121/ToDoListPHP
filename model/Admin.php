@@ -2,9 +2,27 @@
 
 namespace model;
 use database\DBConnection;
-use PDO;
+
 require_once '../database/DBConnection.php';
 class Admin extends DBConnection
 {
+    public function getAllUserData()
+    {
+        $sql = "SELECT * FROM todo.user";
+        $result = $this->connection->query($sql);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 
+    public function deleteUserById($fileId)
+    {
+        $sql = "DELETE FROM todo.user WHERE id = ?";
+        $stmt = $this->connection->prepare($sql);
+        if (!$stmt) {
+            return false;
+        }
+        $stmt->bind_param("i", $fileId);
+        $success = $stmt->execute();
+        $stmt->close();
+        return $success;
+    }
 }

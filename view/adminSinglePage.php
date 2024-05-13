@@ -30,17 +30,12 @@ ob_start();
 <body>
 <div class="main-w3layouts wrapper">
     <h1>Admin profile</h1>
+
     <nav class="top-bar">
         <a class="add-task-button" href="../loginData/logout.php" style="margin-left: 50px">Logout</a>
-        <?php
-        echo "<form action='../controller/AdminController.php' method='post'>";
-        if (isset($_SESSION['user'])) {
-            $email = $_SESSION['user']['email'];
-            echo "<input type='hidden' name='email' value='$email'>";
-            echo "<button class='add-task-button' style='margin-left: 50px;' type='submit'>All tasks</button>";
-        }
-        echo "</form>";
-        ?>
+        <form action='../view/allUsers.php' method='get'>
+           <button class='add-task-button' style='margin-left: 50px;' type='submit'>All Users</button>
+       </form>
     </nav>
 
     <?php

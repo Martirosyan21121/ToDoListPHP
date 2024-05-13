@@ -806,6 +806,24 @@ input.checkbox:checked:after {
 .delete-task-button:hover {
     background-color: rgba(255, 55, 55, 0.84);
 }
+
+
+.deactivate-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #d6a61b;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.deactivate-button:hover {
+    background-color: rgba(226, 184, 66, 0.76);
+}
+
+
 .top-bar {
     padding: 10px; /* Adjust padding as needed */
     display: flex; /* Use flexbox layout */

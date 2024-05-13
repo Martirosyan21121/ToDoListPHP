@@ -1,10 +1,11 @@
 <?php
 
-use model\UserPic;
+use controller\AdminController;
+
 session_start();
 ob_start();
 
-require_once '../model/UserPic.php';
+require_once '../controller/AdminController.php';
 
 ?>
 <!DOCTYPE html>
@@ -32,39 +33,46 @@ require_once '../model/UserPic.php';
     <h1>Your profile</h1>
     <nav class="top-bar">
         <a class="add-task-button" href="../loginData/logout.php" style="margin-left: 50px">Logout</a>
-
+        <a href="../view/adminSinglePage.php" class="add-task-button" style="margin-left: 80%">Back</a>
     </nav>
 
     <table>
-        <thead>
+         <thead>
         <tr>
             <th>ID
             <th>Username
             <th>Email
+            <th>All tasks
+            <th>Edit user
+            <th>Delete
+            <th>Deactivate
         </thead>
         <tbody>
+        <?php
+        $adminController = new AdminController();
+        $allUsers = $adminController->allUsersData();
+      foreach ($allUsers as $user): ?>
         <tr>
-            <td>1
-            <td>Malcolm
-            <td>Reynolds
-        <tr>
-            <td>1
-            <td>Malcolm
-            <td>Reynolds
-        <tr>
-            <td>1
-            <td>Malcolm
-            <td>Reynolds
-        <tr>
-            <td>1
-            <td>Malcolm
-            <td>Reynolds
+            <td> <?= $user['id'] ?>
+            <td> <?= $user['username'] ?>
+            <td> <?= $user['email'] ?>
+            <td> <button class="add-task-button"> All Tasks </button>
+            <td> <button class="download-file-button"> Edit </button>
+            <td><form action="../controller/AdminController.php?id=<?= $user['id']?>" method="post">
+                    <button class="delete-task-button" type="submit"> Delete </button>
+                </form>
+
+            <td> <button class="deactivate-button"> Deactivate </button>
+                <?php endforeach; ?>
         </tbody>
     </table>
+
+    <br>
 
     <div class="colorlibcopy-agile">
         <p>© 2024 project ToDo list using PHP</p>
     </div>
+
     <ul class="colorlib-bubbles">
         <li></li>
         <li></li>
