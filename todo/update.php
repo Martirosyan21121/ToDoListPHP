@@ -1,4 +1,9 @@
 <?php
+
+use model\TaskFile;
+use model\Todo;
+use todo\TodoFunctions;
+
 require_once '../model/Todo.php';
 require_once '../model/TaskFile.php';
 require_once '../todo/TodoFunctions.php';

@@ -1,4 +1,6 @@
 <?php
+namespace todo;
+use model\Todo;
 
 class TodoFunctions
 {

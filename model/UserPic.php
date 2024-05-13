@@ -1,4 +1,6 @@
 <?php
+namespace model;
+use database\DBConnection;
 require_once '../database/DBConnection.php';
 
 class UserPic extends DBConnection

@@ -1,4 +1,9 @@
 <?php
+
+use model\Todo;
+use model\User;
+use model\UserPic;
+
 require_once '../model/User.php';
 require_once '../model/Todo.php';
 require_once '../model/UserPic.php';

@@ -1,4 +1,8 @@
 <?php
+
+use model\Todo;
+use model\User;
+
 require_once("../model/Todo.php");
 require_once("../model/User.php");
 session_start();

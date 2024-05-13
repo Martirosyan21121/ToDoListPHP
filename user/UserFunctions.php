@@ -1,4 +1,5 @@
 <?php
+namespace user;
 session_start();
 class UserFunctions
 {

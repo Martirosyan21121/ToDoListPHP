@@ -1,4 +1,6 @@
 <?php
+
+use model\User;
 require_once "../model/User.php";
 session_start();
 ob_start();
@@ -34,17 +36,12 @@ ob_start();
         if (isset($_SESSION['user'])) {
             $email = $_SESSION['user']['email'];
             echo "<input type='hidden' name='email' value='$email'>";
-            echo "<button class='add-task-button' style='margin-left: 50px;' type='submit' name='update_user'>All tasks</button>";
+            echo "<button class='add-task-button' style='margin-left: 50px;' type='submit' name='all_tasks'>All tasks</button>";
         }
         echo "</form>";
         ?>
     </nav>
     <?php
-    if (isset($_SESSION['admin'])) {
-        $msg = $_SESSION['admin'];
-        echo "<p> $msg </p>";
-
-    }
 
     ?>
     <?php

@@ -1,4 +1,8 @@
 <?php
+
+use model\User;
+use user\UserFunctions;
+
 require_once '../model/User.php';
 require_once '../user/UserFunctions.php';
 
