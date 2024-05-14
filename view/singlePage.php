@@ -41,9 +41,7 @@ ob_start();
         echo "</form>";
         ?>
     </nav>
-    <?php
 
-    ?>
     <?php
     if (isset($_SESSION['count'])) {
         $count = $_SESSION['count'];

@@ -3,37 +3,43 @@
 namespace controller;
 
 use model\Admin;
+use model\TaskFile;
+use model\User;
+use model\UserPic;
 
 require_once "../model/Admin.php";
-
+require_once "../model/User.php";
+require_once "../model/UserPic.php";
 class AdminController
 {
-    public function allUsersData()
+    public function allUsersData(): array
     {
         $admin = new Admin();
         return $admin->getAllUserData();
     }
 
-
-    public function deleteUser()
+    public function deleteUserById($userId): bool
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
-            $userId = $_POST['id'];
-            $admin = new Admin();
-            $deleted = $admin->deleteUserById($userId);
-
-            if ($deleted) {
-                header("Location: ../view/success.php");
-                exit();
-            } else {
-
-                header("Location: ../view/error.php");
-                exit();
-            }
-        } else {
-            header("Location: ../view/error.php");
-            exit();
-        }
+        $admin = new Admin();
+        return $admin->deleteUserById($userId);
     }
 }
+
+if (isset($_GET['delId'])) {
+    $user = new User();
+    $userPic = new UserPic();
+    $userData = $user->getUserDataById($_GET['delId']);
+    $userPicId = $userData['files_id'];
+    if ($userPicId !== null){
+        $userPic->deleteFileById($userData['files_id']);
+    }
+
+    $adminController = new AdminController();
+    $adminController->deleteUserById($_GET['delId']);
+
+    header("Location: ../view/allUsers.php");
+    exit();
+}
+
+
 

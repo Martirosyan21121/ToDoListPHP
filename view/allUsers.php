@@ -1,11 +1,9 @@
 <?php
 
 use controller\AdminController;
-
+require_once '../controller/AdminController.php';
 session_start();
 ob_start();
-
-require_once '../controller/AdminController.php';
 
 ?>
 <!DOCTYPE html>
@@ -59,9 +57,7 @@ require_once '../controller/AdminController.php';
             <td> <?= $user['email'] ?>
             <td> <button class="add-task-button"> All Tasks </button>
             <td> <button class="download-file-button"> Edit </button>
-            <td><form action="../controller/AdminController.php?id=<?= $user['id']?>" method="post">
-                    <button class="delete-task-button" type="submit"> Delete </button>
-                </form>
+            <td> <a href="../controller/AdminController.php?delId=<?= $user['id'] ?>" class="delete-task-button">Delete</a>
 
             <td> <button class="deactivate-button"> Deactivate </button>
                 <?php endforeach; ?>
@@ -89,3 +85,6 @@ require_once '../controller/AdminController.php';
 </body>
 </html>
 
+<!--<form action="../controller/AdminController.php?delId=--><?php //= $user['id']?><!--" method="post">-->
+<!--    <button class="delete-task-button" type="submit"> Delete </button>-->
+<!--</form>-->

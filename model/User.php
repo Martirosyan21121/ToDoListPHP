@@ -65,6 +65,20 @@ class User extends DBConnection
         }
     }
 
+
+    public function getUserDataById($id) {
+        $stmt = $this->connection->prepare("SELECT * FROM todo.user WHERE id = ?");
+        $stmt->bind_param("s", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows == 1) {
+            return $result->fetch_assoc();
+        } else {
+            return null;
+        }
+    }
+
     public function updateUserById($username, $email, $fileId, $userId) {
         $sql = "UPDATE todo.user SET username = ?, email = ?, files_id = ? WHERE id = ?";
         $stmt = $this->connection->prepare($sql);
