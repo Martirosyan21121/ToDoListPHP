@@ -34,8 +34,9 @@ ob_start();
     <nav class="top-bar">
         <a class="add-task-button" href="../loginData/logout.php" style="margin-left: 50px">Logout</a>
         <form action='../view/allUsers.php' method='get'>
-           <button class='add-task-button' style='margin-left: 50px;' type='submit'>All Users</button>
-       </form>
+            <button class='add-task-button' style='margin-left: 50px;' type='submit'>All Users</button>
+        </form>
+
     </nav>
 
     <?php

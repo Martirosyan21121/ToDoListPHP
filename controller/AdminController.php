@@ -40,6 +40,3 @@ if (isset($_GET['delId'])) {
     header("Location: ../view/allUsers.php");
     exit();
 }
-
-
-

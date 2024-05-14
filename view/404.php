@@ -1,12 +1,3 @@
-<?php
-
-use controller\AdminController;
-
-require_once '../controller/AdminController.php';
-session_start();
-ob_start();
-
-?>
 <!DOCTYPE html>
 <html lang="">
 <head>
@@ -29,49 +20,7 @@ ob_start();
 </head>
 <body>
 <div class="main-w3layouts wrapper">
-    <h1>All Users</h1>
-
-    <nav class="top-bar">
-        <a class="add-task-button" href="../loginData/logout.php" style="margin-left: 50px">Logout</a>
-        <a href="../view/adminSinglePage.php" class="add-task-button" style="margin-left: 80%">Back</a>
-    </nav>
-
-    <table>
-        <thead>
-        <tr>
-            <th>ID
-            <th>Username
-            <th>Email
-            <th>All tasks
-            <th>Edit user
-            <th>Delete
-            <th>Deactivate
-        </thead>
-        <tbody>
-        <?php
-        $adminController = new AdminController();
-        $allUsers = $adminController->allUsersData();
-
-        foreach ($allUsers
-
-        as $user): ?>
-        <tr>
-            <td> <?= $user['id'] ?>
-            <td> <?= $user['username'] ?>
-            <td> <?= $user['email'] ?>
-            <td>
-                <button class="add-task-button"> All Tasks</button>
-            <td>
-                <button class="download-file-button"> Edit</button>
-            <td><a href="../controller/AdminController.php?delId=<?= $user['id'] ?>" class="delete-task-button">Delete</a>
-
-
-            <td>
-                <button class="deactivate-button"> Deactivate</button>
-                <?php endforeach; ?>
-        </tbody>
-    </table>
-    <br>
+    <h1>Page not found 404</h1>
 
     <div class="colorlibcopy-agile">
         <p>© 2024 project ToDo list using PHP</p>
