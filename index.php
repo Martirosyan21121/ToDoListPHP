@@ -39,7 +39,6 @@ if (isset($_GET['error']) && $_GET['error'] === 'wrong_login') {
 
     <div class="main-agileinfo">
         <div class="agileits-top">
-
             <form action="loginData/login.php" method="post">
                 <input class="text email" type="email" name="email" placeholder="Email" required="">
                 <?php if (!empty($wrong_email)) { ?>
