@@ -3,7 +3,6 @@
 namespace controller;
 
 use model\Admin;
-use model\TaskFile;
 use model\User;
 use model\UserPic;
 
@@ -31,6 +30,12 @@ if (isset($_GET['delId'])) {
     $userData = $user->getUserDataById($_GET['delId']);
     $userPicId = $userData['files_id'];
     if ($userPicId !== null){
+        $fileToUpdate = $userPic->findFileById($userData['files_id']);
+        $fileToUpdateName = $fileToUpdate['files_name'];
+        $filePathToUpdate = '../img/userPic/' . $fileToUpdateName;
+        if (file_exists($filePathToUpdate)) {
+            unlink($filePathToUpdate);
+        }
         $userPic->deleteFileById($userData['files_id']);
     }
 
