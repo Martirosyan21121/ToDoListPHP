@@ -17,7 +17,7 @@ class AdminController
         return $admin->getAllUserData();
     }
 
-    public function deleteUserById($userId): bool
+    public static function deleteUserById($userId): bool
     {
         $admin = new Admin();
         return $admin->deleteUserById($userId);
@@ -38,6 +38,8 @@ if (isset($_GET['delId'])) {
         }
         $userPic->deleteFileById($userData['files_id']);
     }
+
+
 
     $adminController = new AdminController();
     $adminController->deleteUserById($_GET['delId']);
