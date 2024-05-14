@@ -3,12 +3,14 @@
 namespace controller;
 
 use model\Admin;
+use model\TaskFile;
 use model\User;
 use model\UserPic;
 
 require_once "../model/Admin.php";
 require_once "../model/User.php";
 require_once "../model/UserPic.php";
+require_once "../model/TaskFile.php";
 class AdminController
 {
     public function allUsersData(): array
@@ -27,6 +29,7 @@ class AdminController
 if (isset($_GET['delId'])) {
     $user = new User();
     $userPic = new UserPic();
+    $taskFile = new TaskFile();
     $userData = $user->getUserDataById($_GET['delId']);
     $userPicId = $userData['files_id'];
     if ($userPicId !== null){
